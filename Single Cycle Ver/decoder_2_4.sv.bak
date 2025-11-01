@@ -1,0 +1,14 @@
+module decoder_2_4 (out, in);
+	input logic [1:0] in;
+	output logic [3:0] out;
+	
+	logic n[1:0]
+	not(n[0], in[0]);
+	not(n[1], in[1]);
+	
+	and(out[0], n[0], n[1]);
+	and(out[1], n[0], i[1]);
+	and(out[2], i[0], n[1]);
+	and(out[3], i[0], i[1]);
+	
+endmodule 

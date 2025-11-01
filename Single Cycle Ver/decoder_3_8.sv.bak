@@ -1,0 +1,22 @@
+module decoder_3_8 (out, in);
+	input logic [2:0] in;
+	output logic [7:0] out;
+	
+	logic [2:0] n;
+	for (i = 0; i < 3; i++) begin 
+		not (n[i], in[i]);
+	end
+	
+	
+	and (out[0], n[0], n[1], n[2]);
+	and (out[1], n[0], n[1], in[2]);
+	and (out[2], n[0], in[1], n[2]);
+	and (out[3], n[0], in[1], in[2]);
+	and (out[4], in[0], n[1], n[1]);
+	and (out[5], in[0], n[1], in[2]);
+	and (out[6], in[0], in[1], n[2]);
+	and (out[7], in[0], in[1], in[2]);
+	
+endmodule
+	
+	

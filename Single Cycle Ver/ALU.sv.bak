@@ -1,0 +1,10 @@
+module ALU (result, A, B, cntrl, negative, zero, overflow, carry_out);
+
+	output logic [63:0] result;
+	output logic negative, zero, overflow, carry_out;
+	input logic [63:0] A, B;
+	input logic [3:0] cntrl;
+	
+	
+	
+endmodule 

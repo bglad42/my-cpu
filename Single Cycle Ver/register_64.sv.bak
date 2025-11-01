@@ -1,0 +1,14 @@
+module register_64 (q, d, clk, writedata);
+	output logic [63:0] q;
+	input logic [63:0] d;
+	input logic clk, write;
+	
+	genvar i;
+	generate
+		for (int i = 0; i < 64; i++) begin: eachDFF
+			if (write) begin
+				D_FF flippyflop (.q(q[i]), .d(d[i]), .clk);
+			end 
+		end
+	endgenerate
+endmodule 

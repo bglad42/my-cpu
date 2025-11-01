@@ -1,0 +1,15 @@
+`timescale 1ps/1ns
+
+module nor_16 (out, in);
+
+	input logic [15:0] in;
+	output logic out;
+	
+	wire a, b, c, d;
+	nand #50 (a, in[0], in[1], in[2], in[3]);
+	nand #50 (b, in[4], in[5], in[6], in[7]);
+	nand #50 (c, in[8], in[9], in[10], in[11]);
+	nand #50 (d, in[12], in[13], in[14], in[15]);
+	nor #50 (out, a, b, c, d);
+	
+endmodule 

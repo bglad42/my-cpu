@@ -1,0 +1,14 @@
+module fullAdder (sum, co, ci, a, b);
+	output logic sum, co;
+	input logic a, b, ci;
+	
+	wire ac, ab, bc;
+	xor (sum, a, b, ci);
+	
+	nand (ac, a, ci);
+	nand (ab, a, b);
+	nand (bc, b, ci);
+	
+	nand (co, ac, ab, bc);
+	
+endmodule 

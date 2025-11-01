@@ -1,0 +1,14 @@
+`timescale 1ps/1ps
+
+module fullAdderSubtractor (A, B, CO, CI, sum, subtract);
+	
+	output logic CO, sum;
+	input logic A, B, CI, subtract;
+	
+	wire bi, bin;
+	
+	not #50 (bi, b);
+	mux2_1 (.out(bin), .i0(b), .i1(bi), .sel(subtract));
+	fullAdder (.sum(sum), .A(A), .B(bin), .CO(CO), .CI(CI));	
+	
+endmodule 
