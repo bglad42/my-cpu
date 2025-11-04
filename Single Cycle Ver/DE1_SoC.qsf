@@ -695,3 +695,5 @@ set_global_assignment -name SYSTEMVERILOG_FILE instructmem.sv
 set_global_assignment -name SYSTEMVERILOG_FILE programCounter.sv
 set_global_assignment -name SYSTEMVERILOG_FILE singleCycle.sv
 set_global_assignment -name SYSTEMVERILOG_FILE mux_64_2_1.sv
+set_global_assignment -name SYSTEMVERILOG_FILE math.sv
+set_global_assignment -name SYSTEMVERILOG_FILE controls.sv
