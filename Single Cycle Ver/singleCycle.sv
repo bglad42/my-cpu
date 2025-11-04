@@ -1,5 +1,5 @@
-module singleCycle (clk);
-	input logic clk;
+module singleCycle (clk, reset);
+	input logic clk, reset;
 	output logic;
 	
 	// generate instruction!
@@ -9,8 +9,20 @@ module singleCycle (clk);
 	logic UncondBr, BrTaken, Reg2Loc, RegWrite, ALUSrc, MemWrite, MemToReg; // controls
 	logic [2:0] ALUOp; // more control
 	
+	// flags
+	
+	logic zero, overflow, carryout, negative;
+	
+	D_FF zeroFlag 		(.q(zero), 		.d(ALUz), .clk(clk), .reset(reset));
+	D_FF overflowFlag (.q(overflow), .d(ALUo), .clk(clk), .reset(reset));
+	D_FF carryoutFlag (.q(carryout), .d(ALUc), .clk(clk), .reset(reset));
+	D_FF negativeFlag (.q(negative), .d(ALUn), .clk(clk), .reset(reset));
+	
 	instructmem instruction (.out(instr), .in(pc), .clk(clk));
 	
+	controls broisthethinker (.Reg2Loc(Reg2Loc), .UncondBr(UncondBr), .BrTaken(BrTaken), .RegWrite(RegWrite),
+									  .MemWrite(MemWrite), .ALUOp(ALUOp), .ALUSrc(ALUSrc), .MemToReg(MemToReg), .instr(instr)); // gen control signals
+									  
 	/* BIG PROGRAM COUNTER BLOCK start*/
 	
 	programCounter current (.q(pc), .d(newpc), .clk(clk), .reset(reset)); // out to pc, in from newpc
@@ -48,14 +60,16 @@ module singleCycle (clk);
 	endgenerate
 	
 	regfile reggie (.ReadData1(Da), .ReadData2(Db), .WriteData(Dw), .ReadRegister1(Ain),
-						ReadRegister2(Rn), .WriteRegister(Rd), .RegWrite(RegWrite), .clk(clk)); // figure out wite data and put here
+						ReadRegister2(Rn), .WriteRegister(Rd), .RegWrite(RegWrite), .clk(clk), .reset(reset)); // figure out wite data and put here
 						
 	wire [63:0] ALUResult, DAddr9, ALUBin;
 	
 	sign_extend #(.WIDTH(9)) Addr (.out(DAddr9), .in(instr[20:12])); // Prepare address for LDUR/STUR
 	mux_64_2_1 ALUBinputSrc (.out(ALUBin), .A(Db), .B(DAddr9), .sel(ALUSrc)); // select second ALU operand
 	
-	alu ALU (.result(ALUResult), .A(Da), .B(ALUBin), .cntrl(ALUOp), .negative, .zero, .overflow, .carry_out); //might need flag registers?
+	wire ALUz, ALUo, ALUc, ALUn;
+	
+	alu ALU (.result(ALUResult), .A(Da), .B(ALUBin), .cntrl(ALUOp), .negative(ALUn), .zero(ALUz), .overflow(ALUo), .carry_out(ALUc)); //might need flag registers?
 	
 	wire [63:0] dataOut;
 	datamem dataMemory (.address(ALUResult), .write_enable(MemWrite), .read_enable(1'b1) /*temp*/, // read up on xfer size, read enable reqs
