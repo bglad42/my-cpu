@@ -13,7 +13,7 @@ module mux_64_32_1 (out, in, ReadRegister);
 			for (j = 0; j < 32; j++) begin: col
 				assign r[j] = in[j][i]; 
 			end
-			mux32_1 muxxy (.out(out[i]), .i(r), .sel(ReadRegister)); 
+			mux32_1 muxxy (.out(out[i]), .in(r), .sel(ReadRegister)); 
 		end
 	endgenerate
 endmodule
@@ -28,9 +28,9 @@ module mux_64_32_1_testbench();
 		integer i;
 		for (i = 0; i < 32; i++) begin
 			in[i] = i;
-		end #10
+		end #1000
 		for (i = 0; i < 32; i++) begin
-			ReadRegister = i; #10;
+			ReadRegister = i; #1000;
 		end
 	end
 endmodule 

@@ -99,7 +99,11 @@ module alustim();
 		A = 64'hFAFAFAFAFAFAFAFA; B = 64'hF5F5F5F5F5F5F5F5;
 		#(delay);
 		assert(result == 64'h0F0F0F0F0F0F0F0F && negative == 0 && zero == 0);
-
 		
+		$display("%t testing PASSB", $time);
+		cntrl = ALU_XOR;
+		A = 64'd0; B = 64'd1;
+		#(delay);
+		assert(result == 64'd1 && zero == 0);
 	end
 endmodule

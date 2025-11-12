@@ -7,21 +7,37 @@ vlib work
 vlog "./mux2_1.sv"
 vlog "./mux4_1.sv"
 vlog "./mux8_1.sv"
+vlog "./mux16_1.sv"
 vlog "./mux32_1.sv"
+vlog "./mux_64_2_1.sv"
 vlog "./mux_64_32_1.sv"
-vlog "./decoder_2_4.sv"
 vlog "./decoder_3_8.sv"
+vlog "./decoder_2_4.sv"
 vlog "./decoder_5_32.sv"
 vlog "./D_FF.sv"
-vlog "./register_64.sv"
-vlog "./regstim.sv"
+vlog "./alustim.sv"
+vlog "./nor_16.sv"
+vlog "./nor_64.sv"
+vlog "./alu.sv"
+vlog "./fullAdder.sv"
+vlog "./fullAdderSubtractor.sv"
 vlog "./regfile.sv"
+vlog "./register_64.sv"
+vlog "./sign_extend.sv"
+vlog "./adder_64.sv"
+vlog "./datamem.sv"
+vlog "./instructmem.sv"
+vlog "./programCounter.sv"
+vlog "./singleCycle.sv"
+vlog "./controls.sv"
+vlog "./zero_extend.sv"
+
 
 
 # Call vsim to invoke simulator
 #     Make sure the last item on the line is the name of the
 #     testbench module you want to execute.
-vsim -voptargs="+acc" -t 1ps -lib work decoder_2_4_testbench
+vsim -voptargs="+acc" -t 1ps -lib work alustim
 
 # Source the wave do file
 #     This should be the file that sets up the signal window for

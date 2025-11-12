@@ -1,0 +1,5 @@
+module D_FF_en (q, d, clk, reset, en);
+	input logic d, clk, reset, en;
+	output logic q;
+	
+	mux_2_1 hold (.out(q), .i0(d), .i1(q), .sel(en));

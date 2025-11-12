@@ -2,7 +2,7 @@
 module programCounter (q, d, clk, reset);
 	output logic [63:0] q;
 	input logic [63:0] d;
-	input logic clk, en;
+	input logic clk, reset;
 
 	genvar i;
 	generate

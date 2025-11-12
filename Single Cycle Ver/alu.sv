@@ -19,14 +19,11 @@ module alu (result, A, B, cntrl, negative, zero, overflow, carry_out);
 	
 	genvar i, j;
 	generate
-		for (i = 1; i < 63; i++) begin : eachBit
+		for (i = 1; i < 64; i++) begin : eachBit
 			fullAdderSubtractor addsub (.A(A[i]), .B(B[i]), .Cin(last[i-1]), .Cout(last[i]), 
 												.sum(as[i]), .subtract(cntrl[0]));
 		end
-	endgenerate
-	
-	fullAdderSubtractor addSubOut (.A(A[63]), .B(B[63]), .Cin(last[62]), .Cout(last[63]), 
-												.sum(as[63]), .subtract(cntrl[0])); 	
+	endgenerate	
 												
 	assign carry_out = last[63];								// correctly set carry_out flag	
 	xor #50 (overflow, last[63], last[62]); 				// set overflow flag

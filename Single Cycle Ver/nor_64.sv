@@ -14,3 +14,15 @@ module nor_64 (in, out);
 	and #50 (out, a, b, c, d);
 	
 endmodule 
+
+
+module nor_64_tb();
+	logic [63:0] in;
+	logic out;
+	
+	nor_64 dut (.in, .out);
+	
+	initial begin
+		in = 64'd0; #10;
+	end
+endmodule

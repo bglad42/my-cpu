@@ -1,5 +1,5 @@
 Analysis & Synthesis report for DE1_SoC
-Tue Oct 28 22:12:14 2025
+Tue Nov 11 11:30:18 2025
 Quartus Prime Version 17.0.0 Build 595 04/25/2017 SJ Lite Edition
 
 
@@ -44,7 +44,7 @@ agreement for further details.
 +-------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                  ;
 +---------------------------------+---------------------------------------------+
-; Analysis & Synthesis Status     ; Successful - Tue Oct 28 22:12:14 2025       ;
+; Analysis & Synthesis Status     ; Successful - Tue Nov 11 11:30:18 2025       ;
 ; Quartus Prime Version           ; 17.0.0 Build 595 04/25/2017 SJ Lite Edition ;
 ; Revision Name                   ; DE1_SoC                                     ;
 ; Top-level Entity Name           ; mux2_1                                      ;
@@ -167,13 +167,13 @@ agreement for further details.
 +----------------------------+-------------+
 
 
-+----------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Source Files Read                                                                                                       ;
-+----------------------------------+-----------------+------------------------------+------------------------------------------------+---------+
-; File Name with User-Entered Path ; Used in Netlist ; File Type                    ; File Name with Absolute Path                   ; Library ;
-+----------------------------------+-----------------+------------------------------+------------------------------------------------+---------+
-; mux2_1.sv                        ; yes             ; User SystemVerilog HDL File  ; C:/Users/brayd/Desktop/ECE 469/Lab 3/mux2_1.sv ;         ;
-+----------------------------------+-----------------+------------------------------+------------------------------------------------+---------+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                                                                          ;
++----------------------------------+-----------------+------------------------------+-------------------------------------------------------------------+---------+
+; File Name with User-Entered Path ; Used in Netlist ; File Type                    ; File Name with Absolute Path                                      ; Library ;
++----------------------------------+-----------------+------------------------------+-------------------------------------------------------------------+---------+
+; mux2_1.sv                        ; yes             ; User SystemVerilog HDL File  ; C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/mux2_1.sv ;         ;
++----------------------------------+-----------------+------------------------------+-------------------------------------------------------------------+---------+
 
 
 +--------------------------------------------------------+
@@ -258,74 +258,105 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 17.0.0 Build 595 04/25/2017 SJ Lite Edition
-    Info: Processing started: Tue Oct 28 22:12:02 2025
+    Info: Processing started: Tue Nov 11 11:29:37 2025
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off DE1_SoC -c DE1_SoC
 Info (20030): Parallel compilation is enabled and will use 16 of the 16 processors detected
-Warning (12019): Can't analyze file -- file DE1_SoC.sv is missing
 Info (12021): Found 1 design units, including 1 entities, in source file mux2_1.sv
-    Info (12023): Found entity 1: mux2_1 File: C:/Users/brayd/Desktop/ECE 469/Lab 3/mux2_1.sv Line: 3
+    Info (12023): Found entity 1: mux2_1 File: C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/mux2_1.sv Line: 3
 Info (12021): Found 2 design units, including 2 entities, in source file mux32_1.sv
-    Info (12023): Found entity 1: mux32_1 File: C:/Users/brayd/Desktop/ECE 469/Lab 3/mux32_1.sv Line: 1
-    Info (12023): Found entity 2: mux32_1_testbench File: C:/Users/brayd/Desktop/ECE 469/Lab 3/mux32_1.sv Line: 19
-Info (12021): Found 1 design units, including 1 entities, in source file mux4_1.sv
-    Info (12023): Found entity 1: mux4_1 File: C:/Users/brayd/Desktop/ECE 469/Lab 3/mux4_1.sv Line: 2
+    Info (12023): Found entity 1: mux32_1 File: C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/mux32_1.sv Line: 1
+    Info (12023): Found entity 2: mux32_1_testbench File: C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/mux32_1.sv Line: 15
+Info (12021): Found 2 design units, including 2 entities, in source file mux4_1.sv
+    Info (12023): Found entity 1: mux4_1 File: C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/mux4_1.sv Line: 2
+    Info (12023): Found entity 2: mux4_1_testbench File: C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/mux4_1.sv Line: 12
 Info (12021): Found 1 design units, including 1 entities, in source file mux8_1.sv
-    Info (12023): Found entity 1: mux8_1 File: C:/Users/brayd/Desktop/ECE 469/Lab 3/mux8_1.sv Line: 2
+    Info (12023): Found entity 1: mux8_1 File: C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/mux8_1.sv Line: 2
 Info (12021): Found 1 design units, including 1 entities, in source file d_ff.sv
-    Info (12023): Found entity 1: D_FF File: C:/Users/brayd/Desktop/ECE 469/Lab 3/D_FF.sv Line: 1
+    Info (12023): Found entity 1: D_FF File: C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/D_FF.sv Line: 1
 Info (12021): Found 1 design units, including 1 entities, in source file regfile.sv
-    Info (12023): Found entity 1: regfile File: C:/Users/brayd/Desktop/ECE 469/Lab 3/regfile.sv Line: 1
+    Info (12023): Found entity 1: regfile File: C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/regfile.sv Line: 1
 Info (12021): Found 1 design units, including 1 entities, in source file register_64.sv
-    Info (12023): Found entity 1: register_64 File: C:/Users/brayd/Desktop/ECE 469/Lab 3/register_64.sv Line: 2
+    Info (12023): Found entity 1: register_64 File: C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/register_64.sv Line: 2
 Info (12021): Found 2 design units, including 2 entities, in source file decoder_3_8.sv
-    Info (12023): Found entity 1: decoder_3_8 File: C:/Users/brayd/Desktop/ECE 469/Lab 3/decoder_3_8.sv Line: 2
-    Info (12023): Found entity 2: decoder_3_8_testbench File: C:/Users/brayd/Desktop/ECE 469/Lab 3/decoder_3_8.sv Line: 23
+    Info (12023): Found entity 1: decoder_3_8 File: C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/decoder_3_8.sv Line: 2
+    Info (12023): Found entity 2: decoder_3_8_testbench File: C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/decoder_3_8.sv Line: 23
 Info (12021): Found 2 design units, including 2 entities, in source file decoder_2_4.sv
-    Info (12023): Found entity 1: decoder_2_4 File: C:/Users/brayd/Desktop/ECE 469/Lab 3/decoder_2_4.sv Line: 2
-    Info (12023): Found entity 2: decoder_2_4_testbench File: C:/Users/brayd/Desktop/ECE 469/Lab 3/decoder_2_4.sv Line: 18
+    Info (12023): Found entity 1: decoder_2_4 File: C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/decoder_2_4.sv Line: 2
+    Info (12023): Found entity 2: decoder_2_4_testbench File: C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/decoder_2_4.sv Line: 18
 Info (12021): Found 2 design units, including 2 entities, in source file decoder_5_32.sv
-    Info (12023): Found entity 1: decoder_5_32 File: C:/Users/brayd/Desktop/ECE 469/Lab 3/decoder_5_32.sv Line: 2
-    Info (12023): Found entity 2: decoder_5_32_testbench File: C:/Users/brayd/Desktop/ECE 469/Lab 3/decoder_5_32.sv Line: 19
+    Info (12023): Found entity 1: decoder_5_32 File: C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/decoder_5_32.sv Line: 2
+    Info (12023): Found entity 2: decoder_5_32_testbench File: C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/decoder_5_32.sv Line: 19
 Info (12021): Found 2 design units, including 2 entities, in source file mux_64_32_1.sv
-    Info (12023): Found entity 1: mux_64_32_1 File: C:/Users/brayd/Desktop/ECE 469/Lab 3/mux_64_32_1.sv Line: 2
-    Info (12023): Found entity 2: mux_64_32_1_testbench File: C:/Users/brayd/Desktop/ECE 469/Lab 3/mux_64_32_1.sv Line: 21
+    Info (12023): Found entity 1: mux_64_32_1 File: C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/mux_64_32_1.sv Line: 2
+    Info (12023): Found entity 2: mux_64_32_1_testbench File: C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/mux_64_32_1.sv Line: 21
 Info (12021): Found 1 design units, including 1 entities, in source file regstim.sv
-    Info (12023): Found entity 1: regstim File: C:/Users/brayd/Desktop/ECE 469/Lab 3/regstim.sv Line: 4
+    Info (12023): Found entity 1: regstim File: C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/regstim.sv Line: 4
 Info (12021): Found 1 design units, including 1 entities, in source file fulladder.sv
-    Info (12023): Found entity 1: fullAdder File: C:/Users/brayd/Desktop/ECE 469/Lab 3/fullAdder.sv Line: 3
+    Info (12023): Found entity 1: fullAdder File: C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/fullAdder.sv Line: 3
 Info (12021): Found 1 design units, including 1 entities, in source file fulladdersubtractor.sv
-    Info (12023): Found entity 1: fullAdderSubtractor File: C:/Users/brayd/Desktop/ECE 469/Lab 3/fullAdderSubtractor.sv Line: 3
+    Info (12023): Found entity 1: fullAdderSubtractor File: C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/fullAdderSubtractor.sv Line: 3
 Info (12021): Found 1 design units, including 1 entities, in source file nor_16.sv
-    Info (12023): Found entity 1: nor_16 File: C:/Users/brayd/Desktop/ECE 469/Lab 3/nor_16.sv Line: 3
-Info (12021): Found 1 design units, including 1 entities, in source file nor_64.sv
-    Info (12023): Found entity 1: nor_64 File: C:/Users/brayd/Desktop/ECE 469/Lab 3/nor_64.sv Line: 3
+    Info (12023): Found entity 1: nor_16 File: C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/nor_16.sv Line: 3
+Info (12021): Found 2 design units, including 2 entities, in source file nor_64.sv
+    Info (12023): Found entity 1: nor_64 File: C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/nor_64.sv Line: 3
+    Info (12023): Found entity 2: nor_64_tb File: C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/nor_64.sv Line: 19
 Info (12021): Found 1 design units, including 1 entities, in source file alu.sv
-    Info (12023): Found entity 1: alu File: C:/Users/brayd/Desktop/ECE 469/Lab 3/alu.sv Line: 2
+    Info (12023): Found entity 1: alu File: C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/alu.sv Line: 2
 Info (12021): Found 1 design units, including 1 entities, in source file alustim.sv
-    Info (12023): Found entity 1: alustim File: C:/Users/brayd/Desktop/ECE 469/Lab 3/alustim.sv Line: 20
-Info (12021): Found 1 design units, including 1 entities, in source file sign_extend.sv
-    Info (12023): Found entity 1: sign_extend File: C:/Users/brayd/Desktop/ECE 469/Lab 3/sign_extend.sv Line: 1
-Info (12021): Found 1 design units, including 1 entities, in source file adder_64.sv
-    Info (12023): Found entity 1: adder_64 File: C:/Users/brayd/Desktop/ECE 469/Lab 3/adder_64.sv Line: 1
+    Info (12023): Found entity 1: alustim File: C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/alustim.sv Line: 20
+Info (12021): Found 2 design units, including 2 entities, in source file sign_extend.sv
+    Info (12023): Found entity 1: sign_extend File: C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/sign_extend.sv Line: 2
+    Info (12023): Found entity 2: sign_extend_tb File: C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/sign_extend.sv Line: 22
+Info (12021): Found 2 design units, including 2 entities, in source file adder_64.sv
+    Info (12023): Found entity 1: adder_64 File: C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/adder_64.sv Line: 2
+    Info (12023): Found entity 2: adder_64_tb File: C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/adder_64.sv Line: 17
+Info (12021): Found 2 design units, including 2 entities, in source file datamem.sv
+    Info (12023): Found entity 1: datamem File: C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/datamem.sv Line: 12
+    Info (12023): Found entity 2: datamem_testbench File: C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/datamem.sv Line: 70
+Info (12021): Found 2 design units, including 2 entities, in source file instructmem.sv
+    Info (12023): Found entity 1: instructmem File: C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/instructmem.sv Line: 17
+    Info (12023): Found entity 2: instructmem_testbench File: C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/instructmem.sv Line: 57
+Info (12021): Found 1 design units, including 1 entities, in source file programcounter.sv
+    Info (12023): Found entity 1: programCounter File: C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/programCounter.sv Line: 2
+Info (12021): Found 2 design units, including 2 entities, in source file singlecycle.sv
+    Info (12023): Found entity 1: singleCycle File: C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/singleCycle.sv Line: 2
+    Info (12023): Found entity 2: singleCycle_testbench File: C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/singleCycle.sv Line: 97
+Info (12021): Found 2 design units, including 2 entities, in source file mux_64_2_1.sv
+    Info (12023): Found entity 1: mux_64_2_1 File: C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/mux_64_2_1.sv Line: 2
+    Info (12023): Found entity 2: mux_64_2_1_tb File: C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/mux_64_2_1.sv Line: 15
+Info (12021): Found 4 design units, including 4 entities, in source file math.sv
+    Info (12023): Found entity 1: mult File: C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/math.sv Line: 6
+    Info (12023): Found entity 2: shifter File: C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/math.sv Line: 36
+    Info (12023): Found entity 3: shifter_testbench File: C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/math.sv Line: 51
+    Info (12023): Found entity 4: mult_testbench File: C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/math.sv Line: 71
+Warning (10229): Verilog HDL Expression warning at controls.sv(103): truncated literal to match 2 bits File: C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/controls.sv Line: 103
+Info (12021): Found 1 design units, including 1 entities, in source file controls.sv
+    Info (12023): Found entity 1: controls File: C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/controls.sv Line: 1
+Info (12021): Found 2 design units, including 2 entities, in source file zero_extend.sv
+    Info (12023): Found entity 1: zero_extend File: C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/zero_extend.sv Line: 2
+    Info (12023): Found entity 2: zero_extend_tb File: C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/zero_extend.sv Line: 16
+Warning (10275): Verilog HDL Module Instantiation warning at D_FF_en.sv(7): ignored dangling comma in List of Port Connections File: C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/D_FF_en.sv Line: 7
+Info (12021): Found 1 design units, including 1 entities, in source file d_ff_en.sv
+    Info (12023): Found entity 1: D_FF_en File: C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/D_FF_en.sv Line: 1
 Info (12127): Elaborating entity "mux2_1" for the top level hierarchy
 Info (286030): Timing-Driven Synthesis is running
-Info (144001): Generated suppressed messages file C:/Users/brayd/Desktop/ECE 469/Lab 3/output_files/DE1_SoC.map.smsg
+Info (144001): Generated suppressed messages file C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/output_files/DE1_SoC.map.smsg
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
 Info (21057): Implemented 5 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 3 input pins
     Info (21059): Implemented 1 output pins
     Info (21061): Implemented 1 logic cells
-Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 1 warning
-    Info: Peak virtual memory: 4842 megabytes
-    Info: Processing ended: Tue Oct 28 22:12:14 2025
-    Info: Elapsed time: 00:00:12
-    Info: Total CPU time (on all processors): 00:00:25
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 2 warnings
+    Info: Peak virtual memory: 4853 megabytes
+    Info: Processing ended: Tue Nov 11 11:30:18 2025
+    Info: Elapsed time: 00:00:41
+    Info: Total CPU time (on all processors): 00:00:28
 
 
 +------------------------------------------+
 ; Analysis & Synthesis Suppressed Messages ;
 +------------------------------------------+
-The suppressed messages can be found in C:/Users/brayd/Desktop/ECE 469/Lab 3/output_files/DE1_SoC.map.smsg.
+The suppressed messages can be found in C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/output_files/DE1_SoC.map.smsg.
 
 
