@@ -1,0 +1,158 @@
+`timescale 1ns/1ps
+module pipelined (clk, reset);
+	input logic clk, reset;
+	// generate instruction!
+	
+	logic [31:0] instr;
+	wire [63:0] pc, newpc;
+	logic UncondBr, BrTaken, Reg2Loc, RegWrite, MemWrite, MemToReg; // controls
+	logic [2:0] ALUOp; // more control
+	logic [1:0] ALUSrc; // more
+	
+	// flags
+	
+	logic zero, overflow, carryout, negative, flagWrite;
+	wire ALUz, ALUo, ALUc, ALUn;
+	
+	D_FF_en zeroFlag 		(.q(zero), 		.d(ALUz), .clk(clk), .reset(reset), .en(flagWrite));
+	D_FF_en overflowFlag (.q(overflow), .d(ALUo), .clk(clk), .reset(reset), .en(flagWrite));
+	D_FF_en carryoutFlag (.q(carryout), .d(ALUc), .clk(clk), .reset(reset), .en(flagWrite));
+	D_FF_en negativeFlag (.q(negative), .d(ALUn), .clk(clk), .reset(reset), .en(flagWrite));
+	
+	
+	//  Instruction fetch to Reg/Dec
+	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	
+	regmodular #(.WIDTH(1))		IF_ID_RegWE (.out(), .in(), .clk(clk), .reset(reset));
+	regmodular #(.WIDTH(32))	IF_ID_instr	(.out(), .in(), .clk(clk), .reset(reset));
+	
+	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	
+	instructmem instruction (.instruction(instr), .address(pc), .clk(clk));
+	
+	controls broisthethinker (.Reg2Loc(Reg2Loc), .UncondBr(UncondBr), .BrTaken(BrTaken), .RegWrite(RegWrite), 
+									  .MemWrite(MemWrite), .ALUOp(ALUOp), .ALUSrc(ALUSrc), .MemToReg(MemToReg), 
+									  .instr(instr), .zero(zero), .negative(negative), .overflow(overflow), .flagWrite(flagWrite), .ALUz(ALUz)); // gen control signals
+									  
+	/* BIG IFETCH BLOCK start*/
+	
+	programCounter current (.q(pc), .d(newpc), .clk(clk), .reset(reset)); // out to pc, in from newpc
+	
+	wire [63:0] updateloc, uncond, cond, branch, nobranch, branchPC;
+	
+	sign_extend #(.WIDTH(26)) unc (.out(uncond), .in(instr[25:0])); // se BrAddr26
+	sign_extend #(.WIDTH(19)) con (.out(cond), .in(instr[23:5])); // se CondAddr19
+	
+	mux_64_2_1 CondUncond (.out(updateloc), .A(cond), .B(uncond), .sel(UncondBr)); // selecting UncondBranch or not
+	
+	shifter shifty (.value(updateloc), .direction(1'b0), .distance(6'd2), .result(branch)); //shift result 2 for branch addition
+	
+	adder_64 BranchPCUpdate (.out(branchPC), .A(pc), .B(branch)); // add branch to pc, send to branchPC for update
+	adder_64 PCUpdate (.out(nobranch), .A(pc), .B(64'd4)); // update pc on no branch
+	mux_64_2_1 branchOrNot (.out(newpc), .A(nobranch), .B(branchPC), .sel(BrTaken)); // select new pc address 
+	
+	
+	// Reg/Decode to Execute
+	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	
+	regmodular #(.WIDTH(3)) ID_EX_ALUSrc	(.out(), .in(), .clk(clk), .reset(reset));
+	regmodular #(.WIDTH(3)) ID_EX_ALUOp		(.out(), .in(), .clk(clk), .reset(reset));
+	regmodular #(.WIDTH(1)) ID_EX_MemWE		(.out(), .in(), .clk(clk), .reset(reset));
+	regmodular #(.WIDTH(1)) ID_EX_Mem2Reg	(.out(), .in(), .clk(clk), .reset(reset));
+	regmodular #(.WIDTH(1)) ID_EX_RegWE		(.out(), .in(), .clk(clk), .reset(reset));
+	regmodular #(.WIDTH(32))	ID_EX_instr	(.out(), .in(), .clk(clk), .reset(reset));
+	
+	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+	
+	/* BIG IFETCH BLOCK END */
+	
+	/* ////////////////////////////////////////////////////////////////////////////// */
+	
+	/* the rest of the owl */
+	
+	logic [4:0] Rd, Rm, Rn;
+	assign Rd = instr[4:0];
+	assign Rn = instr[9:5];
+	assign Rm = instr[20:16];
+	
+	wire [63:0] Dw, Da, Db;
+	wire [4:0] Bin;
+	
+	genvar i;
+	generate
+		for (i = 0; i < 5; i++) begin : eachMux
+			mux2_1 whichin (.out(Bin[i]), .i0(Rd[i]), .i1(Rm[i]), .sel(Reg2Loc)); 
+		end
+	endgenerate
+	
+	regfile reggie (.ReadData1(Da), .ReadData2(Db), .WriteData(Dw), .ReadRegister1(Rn),
+						.ReadRegister2(Bin), .WriteRegister(Rd), .RegWrite(RegWrite), .clk(clk), .reset(reset)); // figure out wite data and put here
+						
+	wire [63:0] ALUResult, DAddr, ALUBin, Imm, LSR;
+	
+	sign_extend #(.WIDTH(9)) Addr (.out(DAddr), .in(instr[20:12])); // Prepare address for LDUR/STUR
+	
+	zero_extend #(.WIDTH(12)) Imm12 (.out(Imm), .in(instr[21:10]));
+	
+	generate
+		for (i = 0; i < 64; i++) begin : each4Mux
+			wire [3:0] temp;
+			assign temp[0] = Db[i];
+			assign temp[1] = DAddr[i];
+			assign temp[2] = Imm[i];
+			assign temp[3] = LSR[i];
+			mux4_1 alusourcer (.out(ALUBin[i]), .in(temp), .sel(ALUSrc));
+		end
+	endgenerate
+	
+	alu ALU (.result(ALUResult), .A(Da), .B(ALUBin), .cntrl(ALUOp), .negative(ALUn), .zero(ALUz), .overflow(ALUo), .carry_out(ALUc)); //might need flag registers?
+	
+	wire [63:0] memDataOut;
+	datamem dataMemory (.address(ALUResult), .write_enable(MemWrite), .read_enable(1'b1) /*temp*/, // read up on xfer size, read enable reqs
+								.write_data(Db), .clk(clk), .xfer_size(4'b1000), .read_data(memDataOut));
+	mux_64_2_1 toReg (.out(Dw), .A(ALUResult), .B(memDataOut), .sel(MemToReg));
+	
+	shifter LogicalShiftRight (.value(Da), .direction(1'b1), .distance(instr[15:10]), .result(LSR));
+	
+	// Execute to Mem
+	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	
+	regmodular #(.WIDTH(1)) EX_Mem_MemWE	(.out(), .in(), .clk(clk), .reset(reset));
+	regmodular #(.WIDTH(1)) EX_Mem_Mem2Reg	(.out(), .in(), .clk(clk), .reset(reset));
+	regmodular #(.WIDTH(1)) EX_Mem_RegWE	(.out(), .in(), .clk(clk), .reset(reset));
+	regmodular #(.WIDTH(32))	EX_MEM_instr	(.out(), .in(), .clk(clk), .reset(reset));
+	
+	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	
+	
+	// Mem to WB
+	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	
+	regmodular #(.WIDTH(1)) Mem_IF_RegWE	(.out(), .in(), .clk(clk), .reset(reset));
+	
+	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+endmodule
+
+module pipelined_testbench();
+	
+	logic clk, reset;
+	
+	parameter ClockDelay = 20000;
+	pipelined dut (.clk(clk), .reset(reset));
+	
+	initial begin // Set up the clock
+		clk <= 0;
+		forever #(ClockDelay/2) clk <= ~clk;
+	end
+	
+	int i;
+	initial begin
+		reset = 1;	@(posedge clk);
+		reset = 0;	@(posedge clk);
+		for (i = 0; i < 100; i++) begin
+			@(posedge clk);
+		end
+		$stop;
+	end
+endmodule

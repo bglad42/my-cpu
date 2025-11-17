@@ -1,0 +1,14 @@
+module mux_64_32_1 (out, in, ReadRegister);
+	
+	output logic [63:0] out;
+	input logic [31:0][63:0] in;
+	input logic [4:0] ReadRegister;
+	
+	genvar i;
+	generate
+		for (i = 0; i < 64; i++) begin: eachMux
+			mux32_1 muxxy (.out(), .in());
+		end
+endmodule
+	
+	

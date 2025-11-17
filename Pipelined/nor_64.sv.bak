@@ -1,0 +1,8 @@
+`timescale 1ps/1ns
+
+module nor_64 (in, out);
+	input logic [63:0] in;
+	output logic out;
+	
+	
+endmodule 

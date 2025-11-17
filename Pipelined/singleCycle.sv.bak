@@ -1,0 +1,12 @@
+module singleCycle (clk);
+	input logic clk, reset;
+	output logic;
+	
+	// generate instruction!
+	
+	logic [31:0] instr;
+	wire [63:0] pc;
+	
+	wire [63:0] newpc;
+	
+	programCounter current (.q(pc), .d(newpc), .clk(clk), .reset(reset));

@@ -1,0 +1,17 @@
+module decoder_5_32 (out, RegWrite, WriteRegister);
+	output logic [31:0] out;
+	input logic [4:0] WriteRegister; // select register
+	output logic RegWrite; // write to register
+	
+	
+	logic [3:0][4:0] ins;
+	for (i = 0; i < 3; i++) begin
+		ins[i][3:0] = WriteRegister[3:0];
+	end
+	
+//	
+//	decoder_3_8 d0 (.out(out[7:0]), .in());
+//	decoder_3_8 d1 (.out
+//	decoder_3_8 d2 (
+//	decoder_3_8 d4 (
+endmodule
