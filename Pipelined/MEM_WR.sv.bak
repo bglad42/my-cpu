@@ -1,0 +1,5 @@
+module MEM_WR (MemToReg, MemToreg_out);
+	input;
+	output;
+	
+	

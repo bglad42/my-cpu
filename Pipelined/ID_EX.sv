@@ -19,12 +19,14 @@ module ID_EX (//controls
 	output logic [63:0] Da_out, Db_out, LS_out;
 					
 	
-	D_FF RegWriteID (.q(RegWrite_out), .d(RegWrite), .clk, .reset);
-	D_FF MemWriteID (.q(MemWrite_out), .d(MemWrite), .clk, .reset);
-	D_FF FlagWriteID (.q(flagWrite_out), .d(flagWrite), .clk, .reset);
+	D_FF RegWrite_ID (.q(RegWrite_out), .d(RegWrite), .clk, .reset);
+	D_FF MemWrite_ID (.q(MemWrite_out), .d(MemWrite), .clk, .reset);
+	D_FF FlagWrite_ID (.q(flagWrite_out), .d(flagWrite), .clk, .reset);
+	D_FF MemToReg_ID (.q(MemToReg_out), .d(MemToReg), .clk, .reset);
 	
-	regmodular #(.WIDTH(2)) ALUSrcReg (.out(ALUSrc_out), .in(ALUSrc), .clk, .reset);
-	regmodular #(.WIDTH(3)) ALUOpReg (.out(ALUOp_out), .in(ALUOp), .clk, .reset);
-	regmodular #(.WIDTH(64)) DaReg (.out(Da_out), .in(Da), .clk, .reset);
-	regmodular #(.WIDTH(64)) DbReg (.out(Db_out), .in(Db), .clk, .reset);
+	
+	regmodular #(.WIDTH(2)) ALUSrcReg_ID (.out(ALUSrc_out), .in(ALUSrc), .clk, .reset);
+	regmodular #(.WIDTH(3)) ALUOpReg_ID (.out(ALUOp_out), .in(ALUOp), .clk, .reset);
+	regmodular #(.WIDTH(64)) DaReg_ID (.out(Da_out), .in(Da), .clk, .reset);
+	regmodular #(.WIDTH(64)) DbReg_ID (.out(Db_out), .in(Db), .clk, .reset);
 endmodule 
