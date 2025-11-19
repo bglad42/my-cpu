@@ -1,9 +1,10 @@
 `timescale 1ns/1ps
 module pipelined (clk, reset);
 	input logic clk, reset;
+	wire notClk
 	// generate instruction!
 	
-	logic [31:0] instr;
+	wire [31:0] instr_toreg, instr;
 	wire [63:0] pc, newpc;
 	logic UncondBr, BrTaken, Reg2Loc, RegWrite, MemWrite, MemToReg; // controls
 	logic [2:0] ALUOp; // more control
@@ -20,23 +21,98 @@ module pipelined (clk, reset);
 	D_FF_en negativeFlag (.q(negative), .d(ALUn), .clk(clk), .reset(reset), .en(flagWrite));
 	
 	
-	//  Instruction fetch to Reg/Dec
+	//  Instruction fetch (IF)
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
-	regmodular #(.WIDTH(1))		IF_ID_RegWE (.out(), .in(), .clk(clk), .reset(reset));
-	regmodular #(.WIDTH(32))	IF_ID_instr	(.out(), .in(), .clk(clk), .reset(reset));
-	
-	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	programCounter current (.q(pc), .d(newpc), .clk(clk), .reset(reset)); // out to pc, in from newpc
 	
 	instructmem instruction (.instruction(instr), .address(pc), .clk(clk));
 	
+	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	
+	
+	IF_ID IF_ID_register (.PCin(), .PCout(), .instr(instr_toreg), instr_out(instr), .clk, .reset); // finish via last pipeline register
+	
+	
+	// Register Fetch (ID)
+	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	
+	logic [4:0] Rd, Rm, Rn;
+	assign Rd = instr[4:0];
+	assign Rn = instr[9:5];
+	assign Rm = instr[20:16];
+	
+	wire [63:0] Dw, Da, Db;
+	wire [4:0] Bin;
+						
+	wire [63:0] ALUResult, DAddr, ALUBin, Imm, LSR;
+	
+	sign_extend #(.WIDTH(9)) Addr (.out(DAddr), .in(instr[20:12]));
+	zero_extend #(.WIDTH(12)) Imm12 (.out(Imm), .in(instr[21:10]));
+	
+	shifter LogicalShiftRight (.value(Da), .direction(1'b1), .distance(instr[15:10]), .result(LSR));
+	
+	generate
+		for (i = 0; i < 64; i++) begin : each4Mux
+			wire [3:0] temp;
+			assign temp[0] = Db[i];
+			assign temp[1] = DAddr[i];
+			assign temp[2] = Imm[i];
+			assign temp[3] = LSR[i];
+			mux4_1 alusourcer (.out(ALUBin[i]), .in(temp), .sel(ALUSrc));
+		end
+	endgenerate
+	
+	not #50 clkHack (notClk, clk);
+	
+	regfile reggie (.ReadData1(Da), .ReadData2(Db), .WriteData(Dw), .ReadRegister1(Rn),
+						.ReadRegister2(Bin), .WriteRegister(Rd), .RegWrite(RegWrite), .clk(notClk), .reset);
+	
 	controls broisthethinker (.Reg2Loc(Reg2Loc), .UncondBr(UncondBr), .BrTaken(BrTaken), .RegWrite(RegWrite), 
 									  .MemWrite(MemWrite), .ALUOp(ALUOp), .ALUSrc(ALUSrc), .MemToReg(MemToReg), 
-									  .instr(instr), .zero(zero), .negative(negative), .overflow(overflow), .flagWrite(flagWrite), .ALUz(ALUz)); // gen control signals
-									  
-	/* BIG IFETCH BLOCK start*/
+									  .instr(instr), .zero(zero), .negative(negative), .overflow(overflow), 
+									  .flagWrite(flagWrite), .ALUz(ALUz));
+	// end register fetch
+	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~					
+						
+						
+	ID_EX ID_EX_register (.RegWrite(), .MemWrite(), .ALUOp(), .ALUSrc(), .MemToReg(), .flagWrite(), 
+								.RegWrite_out(), .MemWrite_out(), .ALUOp_out(), .ALUSrc_out(), .MemToReg_out(), .instr_out(), .flagWrite_out(),
+								.Imm12Ext(), .Daddr9Ext(), .LS(), .Rd(), .Da(), .Db(), .Imm12Ext_out(), .Daddr9Ext_out(), .LS_out(), .Rd_out(),
+								.Da_out(), .Db_out(), .clk, .reset);
+								
+	// Execute (EX)
+	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
-	programCounter current (.q(pc), .d(newpc), .clk(clk), .reset(reset)); // out to pc, in from newpc
+		alu ALU (.result(ALUResult), .A(Da), .B(ALUBin), .cntrl(ALUOp), .negative(ALUn), .zero(ALUz), .overflow(ALUo), .carry_out(ALUc)); //might need flag registers?
+
+	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	
+	
+	EX_MEM EX_MEM_register (.Db(), .Daddr9Ext(), .MemWrite(), .MemToReg(), .FlagWrite(), .RegWrite(), .Rd(), .clk, .reset, 
+									.Db_out(), .Daddr9Ext_out(), .MemWrite_out(), .MemToReg_out(), .FlagWrite_out(), .RegWrite_out(), .Rd_out());
+	
+
+	// Data Memory (MEM)
+	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	
+	wire [63:0] memDataOut;
+	datamem dataMemory (.address(ALUResult), .write_enable(MemWrite), .read_enable(1'b1), // read up on xfer size, read enable reqs
+								.write_data(Db), .clk(clk), .xfer_size(4'b1000), .read_data(memDataOut));
+	
+	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	
+	
+	MEM_WR MEM_WR_register (.RegWrite(), .RegWrite_out(), .Rd(), .Rd_out(), .Data(), .DataOut(), .clk, .reset);
+	
+	
+	// Writeback (WR)
+	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	
+	mux_64_2_1 toReg (.out(Dw), .A(ALUResult), .B(memDataOut), .sel(MemToReg));
+	
+	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 	
 	wire [63:0] updateloc, uncond, cond, branch, nobranch, branchPC;
 	
@@ -52,86 +128,6 @@ module pipelined (clk, reset);
 	mux_64_2_1 branchOrNot (.out(newpc), .A(nobranch), .B(branchPC), .sel(BrTaken)); // select new pc address 
 	
 	
-	// Reg/Decode to Execute
-	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	
-	regmodular #(.WIDTH(3)) ID_EX_ALUSrc	(.out(), .in(), .clk(clk), .reset(reset));
-	regmodular #(.WIDTH(3)) ID_EX_ALUOp		(.out(), .in(), .clk(clk), .reset(reset));
-	regmodular #(.WIDTH(1)) ID_EX_MemWE		(.out(), .in(), .clk(clk), .reset(reset));
-	regmodular #(.WIDTH(1)) ID_EX_Mem2Reg	(.out(), .in(), .clk(clk), .reset(reset));
-	regmodular #(.WIDTH(1)) ID_EX_RegWE		(.out(), .in(), .clk(clk), .reset(reset));
-	regmodular #(.WIDTH(32))	ID_EX_instr	(.out(), .in(), .clk(clk), .reset(reset));
-	
-	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-	
-	/* BIG IFETCH BLOCK END */
-	
-	/* ////////////////////////////////////////////////////////////////////////////// */
-	
-	/* the rest of the owl */
-	
-	logic [4:0] Rd, Rm, Rn;
-	assign Rd = instr[4:0];
-	assign Rn = instr[9:5];
-	assign Rm = instr[20:16];
-	
-	wire [63:0] Dw, Da, Db;
-	wire [4:0] Bin;
-	
-	genvar i;
-	generate
-		for (i = 0; i < 5; i++) begin : eachMux
-			mux2_1 whichin (.out(Bin[i]), .i0(Rd[i]), .i1(Rm[i]), .sel(Reg2Loc)); 
-		end
-	endgenerate
-	
-	regfile reggie (.ReadData1(Da), .ReadData2(Db), .WriteData(Dw), .ReadRegister1(Rn),
-						.ReadRegister2(Bin), .WriteRegister(Rd), .RegWrite(RegWrite), .clk(clk), .reset(reset)); // figure out wite data and put here
-						
-	wire [63:0] ALUResult, DAddr, ALUBin, Imm, LSR;
-	
-	sign_extend #(.WIDTH(9)) Addr (.out(DAddr), .in(instr[20:12])); // Prepare address for LDUR/STUR
-	
-	zero_extend #(.WIDTH(12)) Imm12 (.out(Imm), .in(instr[21:10]));
-	
-	generate
-		for (i = 0; i < 64; i++) begin : each4Mux
-			wire [3:0] temp;
-			assign temp[0] = Db[i];
-			assign temp[1] = DAddr[i];
-			assign temp[2] = Imm[i];
-			assign temp[3] = LSR[i];
-			mux4_1 alusourcer (.out(ALUBin[i]), .in(temp), .sel(ALUSrc));
-		end
-	endgenerate
-	
-	alu ALU (.result(ALUResult), .A(Da), .B(ALUBin), .cntrl(ALUOp), .negative(ALUn), .zero(ALUz), .overflow(ALUo), .carry_out(ALUc)); //might need flag registers?
-	
-	wire [63:0] memDataOut;
-	datamem dataMemory (.address(ALUResult), .write_enable(MemWrite), .read_enable(1'b1) /*temp*/, // read up on xfer size, read enable reqs
-								.write_data(Db), .clk(clk), .xfer_size(4'b1000), .read_data(memDataOut));
-	mux_64_2_1 toReg (.out(Dw), .A(ALUResult), .B(memDataOut), .sel(MemToReg));
-	
-	shifter LogicalShiftRight (.value(Da), .direction(1'b1), .distance(instr[15:10]), .result(LSR));
-	
-	// Execute to Mem
-	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	
-	regmodular #(.WIDTH(1)) EX_Mem_MemWE	(.out(), .in(), .clk(clk), .reset(reset));
-	regmodular #(.WIDTH(1)) EX_Mem_Mem2Reg	(.out(), .in(), .clk(clk), .reset(reset));
-	regmodular #(.WIDTH(1)) EX_Mem_RegWE	(.out(), .in(), .clk(clk), .reset(reset));
-	regmodular #(.WIDTH(32))	EX_MEM_instr	(.out(), .in(), .clk(clk), .reset(reset));
-	
-	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	
-	
-	// Mem to WB
-	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	
-	regmodular #(.WIDTH(1)) Mem_IF_RegWE	(.out(), .in(), .clk(clk), .reset(reset));
-	
-	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 endmodule
 
 module pipelined_testbench();
