@@ -1,5 +1,5 @@
 Analysis & Synthesis report for DE1_SoC
-Tue Nov 11 11:30:18 2025
+Thu Nov 20 14:11:16 2025
 Quartus Prime Version 17.0.0 Build 595 04/25/2017 SJ Lite Edition
 
 
@@ -10,14 +10,8 @@ Quartus Prime Version 17.0.0 Build 595 04/25/2017 SJ Lite Edition
   2. Analysis & Synthesis Summary
   3. Analysis & Synthesis Settings
   4. Parallel Compilation
-  5. Analysis & Synthesis Source Files Read
-  6. Analysis & Synthesis Resource Usage Summary
-  7. Analysis & Synthesis Resource Utilization by Entity
-  8. General Register Statistics
-  9. Post-Synthesis Netlist Statistics for Top Partition
- 10. Elapsed Time Per Partition
- 11. Analysis & Synthesis Messages
- 12. Analysis & Synthesis Suppressed Messages
+  5. Analysis & Synthesis Messages
+  6. Analysis & Synthesis Suppressed Messages
 
 
 
@@ -41,27 +35,22 @@ agreement for further details.
 
 
 
-+-------------------------------------------------------------------------------+
-; Analysis & Synthesis Summary                                                  ;
-+---------------------------------+---------------------------------------------+
-; Analysis & Synthesis Status     ; Successful - Tue Nov 11 11:30:18 2025       ;
-; Quartus Prime Version           ; 17.0.0 Build 595 04/25/2017 SJ Lite Edition ;
-; Revision Name                   ; DE1_SoC                                     ;
-; Top-level Entity Name           ; mux2_1                                      ;
-; Family                          ; Cyclone V                                   ;
-; Logic utilization (in ALMs)     ; N/A                                         ;
-; Total registers                 ; 0                                           ;
-; Total pins                      ; 4                                           ;
-; Total virtual pins              ; 0                                           ;
-; Total block memory bits         ; 0                                           ;
-; Total DSP Blocks                ; 0                                           ;
-; Total HSSI RX PCSs              ; 0                                           ;
-; Total HSSI PMA RX Deserializers ; 0                                           ;
-; Total HSSI TX PCSs              ; 0                                           ;
-; Total HSSI PMA TX Serializers   ; 0                                           ;
-; Total PLLs                      ; 0                                           ;
-; Total DLLs                      ; 0                                           ;
-+---------------------------------+---------------------------------------------+
++---------------------------------------------------------------------------+
+; Analysis & Synthesis Summary                                              ;
++-----------------------------+---------------------------------------------+
+; Analysis & Synthesis Status ; Failed - Thu Nov 20 14:11:16 2025           ;
+; Quartus Prime Version       ; 17.0.0 Build 595 04/25/2017 SJ Lite Edition ;
+; Revision Name               ; DE1_SoC                                     ;
+; Top-level Entity Name       ; pipelined                                   ;
+; Family                      ; Cyclone V                                   ;
+; Logic utilization (in ALMs) ; N/A until Partition Merge                   ;
+; Total registers             ; N/A until Partition Merge                   ;
+; Total pins                  ; N/A until Partition Merge                   ;
+; Total virtual pins          ; N/A until Partition Merge                   ;
+; Total block memory bits     ; N/A until Partition Merge                   ;
+; Total PLLs                  ; N/A until Partition Merge                   ;
+; Total DLLs                  ; N/A until Partition Merge                   ;
++-----------------------------+---------------------------------------------+
 
 
 +---------------------------------------------------------------------------------------------------------------------------+
@@ -70,7 +59,7 @@ agreement for further details.
 ; Option                                                                          ; Setting            ; Default Value      ;
 +---------------------------------------------------------------------------------+--------------------+--------------------+
 ; Device                                                                          ; 5CSEMA5F31C6       ;                    ;
-; Top-level entity name                                                           ; mux2_1             ; DE1_SoC            ;
+; Top-level entity name                                                           ; pipelined          ; DE1_SoC            ;
 ; Family name                                                                     ; Cyclone V          ; Cyclone V          ;
 ; State Machine Processing                                                        ; User-Encoded       ; Auto               ;
 ; Use smart compilation                                                           ; Off                ; Off                ;
@@ -167,196 +156,158 @@ agreement for further details.
 +----------------------------+-------------+
 
 
-+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Source Files Read                                                                                                                          ;
-+----------------------------------+-----------------+------------------------------+-------------------------------------------------------------------+---------+
-; File Name with User-Entered Path ; Used in Netlist ; File Type                    ; File Name with Absolute Path                                      ; Library ;
-+----------------------------------+-----------------+------------------------------+-------------------------------------------------------------------+---------+
-; mux2_1.sv                        ; yes             ; User SystemVerilog HDL File  ; C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/mux2_1.sv ;         ;
-+----------------------------------+-----------------+------------------------------+-------------------------------------------------------------------+---------+
-
-
-+--------------------------------------------------------+
-; Analysis & Synthesis Resource Usage Summary            ;
-+---------------------------------------------+----------+
-; Resource                                    ; Usage    ;
-+---------------------------------------------+----------+
-; Estimate of Logic utilization (ALMs needed) ; 1        ;
-;                                             ;          ;
-; Combinational ALUT usage for logic          ; 1        ;
-;     -- 7 input functions                    ; 0        ;
-;     -- 6 input functions                    ; 0        ;
-;     -- 5 input functions                    ; 0        ;
-;     -- 4 input functions                    ; 0        ;
-;     -- <=3 input functions                  ; 1        ;
-;                                             ;          ;
-; Dedicated logic registers                   ; 0        ;
-;                                             ;          ;
-; I/O pins                                    ; 4        ;
-;                                             ;          ;
-; Total DSP Blocks                            ; 0        ;
-;                                             ;          ;
-; Maximum fan-out node                        ; result~0 ;
-; Maximum fan-out                             ; 1        ;
-; Total fan-out                               ; 8        ;
-; Average fan-out                             ; 0.89     ;
-+---------------------------------------------+----------+
-
-
-+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                    ;
-+----------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+---------------------+-------------+--------------+
-; Compilation Hierarchy Node ; Combinational ALUTs ; Dedicated Logic Registers ; Block Memory Bits ; DSP Blocks ; Pins ; Virtual Pins ; Full Hierarchy Name ; Entity Name ; Library Name ;
-+----------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+---------------------+-------------+--------------+
-; |mux2_1                    ; 1 (1)               ; 0 (0)                     ; 0                 ; 0          ; 4    ; 0            ; |mux2_1             ; mux2_1      ; work         ;
-+----------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+---------------------+-------------+--------------+
-Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
-
-
-+------------------------------------------------------+
-; General Register Statistics                          ;
-+----------------------------------------------+-------+
-; Statistic                                    ; Value ;
-+----------------------------------------------+-------+
-; Total registers                              ; 0     ;
-; Number of registers using Synchronous Clear  ; 0     ;
-; Number of registers using Synchronous Load   ; 0     ;
-; Number of registers using Asynchronous Clear ; 0     ;
-; Number of registers using Asynchronous Load  ; 0     ;
-; Number of registers using Clock Enable       ; 0     ;
-; Number of registers using Preset             ; 0     ;
-+----------------------------------------------+-------+
-
-
-+-----------------------------------------------------+
-; Post-Synthesis Netlist Statistics for Top Partition ;
-+-----------------------+-----------------------------+
-; Type                  ; Count                       ;
-+-----------------------+-----------------------------+
-; arriav_lcell_comb     ; 1                           ;
-;     normal            ; 1                           ;
-;         3 data inputs ; 1                           ;
-; boundary_port         ; 4                           ;
-;                       ;                             ;
-; Max LUT depth         ; 1.00                        ;
-; Average LUT depth     ; 1.00                        ;
-+-----------------------+-----------------------------+
-
-
-+-------------------------------+
-; Elapsed Time Per Partition    ;
-+----------------+--------------+
-; Partition Name ; Elapsed Time ;
-+----------------+--------------+
-; Top            ; 00:00:00     ;
-+----------------+--------------+
-
-
 +-------------------------------+
 ; Analysis & Synthesis Messages ;
 +-------------------------------+
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 17.0.0 Build 595 04/25/2017 SJ Lite Edition
-    Info: Processing started: Tue Nov 11 11:29:37 2025
+    Info: Processing started: Thu Nov 20 14:11:02 2025
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off DE1_SoC -c DE1_SoC
 Info (20030): Parallel compilation is enabled and will use 16 of the 16 processors detected
 Info (12021): Found 1 design units, including 1 entities, in source file mux2_1.sv
-    Info (12023): Found entity 1: mux2_1 File: C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/mux2_1.sv Line: 3
+    Info (12023): Found entity 1: mux2_1 File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/mux2_1.sv Line: 3
 Info (12021): Found 2 design units, including 2 entities, in source file mux32_1.sv
-    Info (12023): Found entity 1: mux32_1 File: C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/mux32_1.sv Line: 1
-    Info (12023): Found entity 2: mux32_1_testbench File: C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/mux32_1.sv Line: 15
+    Info (12023): Found entity 1: mux32_1 File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/mux32_1.sv Line: 1
+    Info (12023): Found entity 2: mux32_1_testbench File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/mux32_1.sv Line: 15
 Info (12021): Found 2 design units, including 2 entities, in source file mux4_1.sv
-    Info (12023): Found entity 1: mux4_1 File: C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/mux4_1.sv Line: 2
-    Info (12023): Found entity 2: mux4_1_testbench File: C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/mux4_1.sv Line: 12
+    Info (12023): Found entity 1: mux4_1 File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/mux4_1.sv Line: 2
+    Info (12023): Found entity 2: mux4_1_testbench File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/mux4_1.sv Line: 12
 Info (12021): Found 1 design units, including 1 entities, in source file mux8_1.sv
-    Info (12023): Found entity 1: mux8_1 File: C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/mux8_1.sv Line: 2
+    Info (12023): Found entity 1: mux8_1 File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/mux8_1.sv Line: 2
 Info (12021): Found 1 design units, including 1 entities, in source file d_ff.sv
-    Info (12023): Found entity 1: D_FF File: C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/D_FF.sv Line: 1
+    Info (12023): Found entity 1: D_FF File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/D_FF.sv Line: 1
 Info (12021): Found 1 design units, including 1 entities, in source file regfile.sv
-    Info (12023): Found entity 1: regfile File: C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/regfile.sv Line: 1
+    Info (12023): Found entity 1: regfile File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/regfile.sv Line: 1
 Info (12021): Found 1 design units, including 1 entities, in source file register_64.sv
-    Info (12023): Found entity 1: register_64 File: C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/register_64.sv Line: 2
+    Info (12023): Found entity 1: register_64 File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/register_64.sv Line: 2
 Info (12021): Found 2 design units, including 2 entities, in source file decoder_3_8.sv
-    Info (12023): Found entity 1: decoder_3_8 File: C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/decoder_3_8.sv Line: 2
-    Info (12023): Found entity 2: decoder_3_8_testbench File: C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/decoder_3_8.sv Line: 23
+    Info (12023): Found entity 1: decoder_3_8 File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/decoder_3_8.sv Line: 2
+    Info (12023): Found entity 2: decoder_3_8_testbench File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/decoder_3_8.sv Line: 23
 Info (12021): Found 2 design units, including 2 entities, in source file decoder_2_4.sv
-    Info (12023): Found entity 1: decoder_2_4 File: C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/decoder_2_4.sv Line: 2
-    Info (12023): Found entity 2: decoder_2_4_testbench File: C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/decoder_2_4.sv Line: 18
+    Info (12023): Found entity 1: decoder_2_4 File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/decoder_2_4.sv Line: 2
+    Info (12023): Found entity 2: decoder_2_4_testbench File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/decoder_2_4.sv Line: 18
 Info (12021): Found 2 design units, including 2 entities, in source file decoder_5_32.sv
-    Info (12023): Found entity 1: decoder_5_32 File: C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/decoder_5_32.sv Line: 2
-    Info (12023): Found entity 2: decoder_5_32_testbench File: C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/decoder_5_32.sv Line: 19
+    Info (12023): Found entity 1: decoder_5_32 File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/decoder_5_32.sv Line: 2
+    Info (12023): Found entity 2: decoder_5_32_testbench File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/decoder_5_32.sv Line: 19
 Info (12021): Found 2 design units, including 2 entities, in source file mux_64_32_1.sv
-    Info (12023): Found entity 1: mux_64_32_1 File: C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/mux_64_32_1.sv Line: 2
-    Info (12023): Found entity 2: mux_64_32_1_testbench File: C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/mux_64_32_1.sv Line: 21
+    Info (12023): Found entity 1: mux_64_32_1 File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/mux_64_32_1.sv Line: 2
+    Info (12023): Found entity 2: mux_64_32_1_testbench File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/mux_64_32_1.sv Line: 21
 Info (12021): Found 1 design units, including 1 entities, in source file regstim.sv
-    Info (12023): Found entity 1: regstim File: C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/regstim.sv Line: 4
+    Info (12023): Found entity 1: regstim File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/regstim.sv Line: 4
 Info (12021): Found 1 design units, including 1 entities, in source file fulladder.sv
-    Info (12023): Found entity 1: fullAdder File: C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/fullAdder.sv Line: 3
+    Info (12023): Found entity 1: fullAdder File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/fullAdder.sv Line: 3
 Info (12021): Found 1 design units, including 1 entities, in source file fulladdersubtractor.sv
-    Info (12023): Found entity 1: fullAdderSubtractor File: C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/fullAdderSubtractor.sv Line: 3
+    Info (12023): Found entity 1: fullAdderSubtractor File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/fullAdderSubtractor.sv Line: 3
 Info (12021): Found 1 design units, including 1 entities, in source file nor_16.sv
-    Info (12023): Found entity 1: nor_16 File: C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/nor_16.sv Line: 3
+    Info (12023): Found entity 1: nor_16 File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/nor_16.sv Line: 3
 Info (12021): Found 2 design units, including 2 entities, in source file nor_64.sv
-    Info (12023): Found entity 1: nor_64 File: C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/nor_64.sv Line: 3
-    Info (12023): Found entity 2: nor_64_tb File: C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/nor_64.sv Line: 19
+    Info (12023): Found entity 1: nor_64 File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/nor_64.sv Line: 3
+    Info (12023): Found entity 2: nor_64_tb File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/nor_64.sv Line: 19
 Info (12021): Found 1 design units, including 1 entities, in source file alu.sv
-    Info (12023): Found entity 1: alu File: C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/alu.sv Line: 2
+    Info (12023): Found entity 1: alu File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/alu.sv Line: 2
 Info (12021): Found 1 design units, including 1 entities, in source file alustim.sv
-    Info (12023): Found entity 1: alustim File: C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/alustim.sv Line: 20
+    Info (12023): Found entity 1: alustim File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/alustim.sv Line: 20
 Info (12021): Found 2 design units, including 2 entities, in source file sign_extend.sv
-    Info (12023): Found entity 1: sign_extend File: C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/sign_extend.sv Line: 2
-    Info (12023): Found entity 2: sign_extend_tb File: C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/sign_extend.sv Line: 22
+    Info (12023): Found entity 1: sign_extend File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/sign_extend.sv Line: 2
+    Info (12023): Found entity 2: sign_extend_tb File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/sign_extend.sv Line: 22
 Info (12021): Found 2 design units, including 2 entities, in source file adder_64.sv
-    Info (12023): Found entity 1: adder_64 File: C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/adder_64.sv Line: 2
-    Info (12023): Found entity 2: adder_64_tb File: C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/adder_64.sv Line: 17
+    Info (12023): Found entity 1: adder_64 File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/adder_64.sv Line: 2
+    Info (12023): Found entity 2: adder_64_tb File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/adder_64.sv Line: 17
 Info (12021): Found 2 design units, including 2 entities, in source file datamem.sv
-    Info (12023): Found entity 1: datamem File: C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/datamem.sv Line: 12
-    Info (12023): Found entity 2: datamem_testbench File: C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/datamem.sv Line: 70
+    Info (12023): Found entity 1: datamem File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/datamem.sv Line: 12
+    Info (12023): Found entity 2: datamem_testbench File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/datamem.sv Line: 70
+Critical Warning (10191): Verilog HDL Compiler Directive warning at instructmem.sv(42): text macro "BENCHMARK" is undefined File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/instructmem.sv Line: 42
 Info (12021): Found 2 design units, including 2 entities, in source file instructmem.sv
-    Info (12023): Found entity 1: instructmem File: C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/instructmem.sv Line: 17
-    Info (12023): Found entity 2: instructmem_testbench File: C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/instructmem.sv Line: 57
+    Info (12023): Found entity 1: instructmem File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/instructmem.sv Line: 17
+    Info (12023): Found entity 2: instructmem_testbench File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/instructmem.sv Line: 57
 Info (12021): Found 1 design units, including 1 entities, in source file programcounter.sv
-    Info (12023): Found entity 1: programCounter File: C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/programCounter.sv Line: 2
-Info (12021): Found 2 design units, including 2 entities, in source file singlecycle.sv
-    Info (12023): Found entity 1: singleCycle File: C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/singleCycle.sv Line: 2
-    Info (12023): Found entity 2: singleCycle_testbench File: C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/singleCycle.sv Line: 97
+    Info (12023): Found entity 1: programCounter File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/programCounter.sv Line: 2
 Info (12021): Found 2 design units, including 2 entities, in source file mux_64_2_1.sv
-    Info (12023): Found entity 1: mux_64_2_1 File: C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/mux_64_2_1.sv Line: 2
-    Info (12023): Found entity 2: mux_64_2_1_tb File: C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/mux_64_2_1.sv Line: 15
+    Info (12023): Found entity 1: mux_64_2_1 File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/mux_64_2_1.sv Line: 2
+    Info (12023): Found entity 2: mux_64_2_1_tb File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/mux_64_2_1.sv Line: 15
 Info (12021): Found 4 design units, including 4 entities, in source file math.sv
-    Info (12023): Found entity 1: mult File: C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/math.sv Line: 6
-    Info (12023): Found entity 2: shifter File: C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/math.sv Line: 36
-    Info (12023): Found entity 3: shifter_testbench File: C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/math.sv Line: 51
-    Info (12023): Found entity 4: mult_testbench File: C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/math.sv Line: 71
-Warning (10229): Verilog HDL Expression warning at controls.sv(103): truncated literal to match 2 bits File: C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/controls.sv Line: 103
+    Info (12023): Found entity 1: mult File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/math.sv Line: 6
+    Info (12023): Found entity 2: shifter File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/math.sv Line: 36
+    Info (12023): Found entity 3: shifter_testbench File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/math.sv Line: 51
+    Info (12023): Found entity 4: mult_testbench File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/math.sv Line: 71
 Info (12021): Found 1 design units, including 1 entities, in source file controls.sv
-    Info (12023): Found entity 1: controls File: C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/controls.sv Line: 1
+    Info (12023): Found entity 1: controls File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/controls.sv Line: 1
 Info (12021): Found 2 design units, including 2 entities, in source file zero_extend.sv
-    Info (12023): Found entity 1: zero_extend File: C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/zero_extend.sv Line: 2
-    Info (12023): Found entity 2: zero_extend_tb File: C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/zero_extend.sv Line: 16
-Warning (10275): Verilog HDL Module Instantiation warning at D_FF_en.sv(7): ignored dangling comma in List of Port Connections File: C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/D_FF_en.sv Line: 7
+    Info (12023): Found entity 1: zero_extend File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/zero_extend.sv Line: 2
+    Info (12023): Found entity 2: zero_extend_tb File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/zero_extend.sv Line: 16
 Info (12021): Found 1 design units, including 1 entities, in source file d_ff_en.sv
-    Info (12023): Found entity 1: D_FF_en File: C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/D_FF_en.sv Line: 1
-Info (12127): Elaborating entity "mux2_1" for the top level hierarchy
-Info (286030): Timing-Driven Synthesis is running
-Info (144001): Generated suppressed messages file C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/output_files/DE1_SoC.map.smsg
-Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
-    Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
-Info (21057): Implemented 5 device resources after synthesis - the final resource count might be different
-    Info (21058): Implemented 3 input pins
-    Info (21059): Implemented 1 output pins
-    Info (21061): Implemented 1 logic cells
-Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 2 warnings
-    Info: Peak virtual memory: 4853 megabytes
-    Info: Processing ended: Tue Nov 11 11:30:18 2025
-    Info: Elapsed time: 00:00:41
-    Info: Total CPU time (on all processors): 00:00:28
+    Info (12023): Found entity 1: D_FF_en File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/D_FF_en.sv Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file regmodular.sv
+    Info (12023): Found entity 1: regmodular File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/regmodular.sv Line: 1
+Info (12021): Found 2 design units, including 2 entities, in source file pipelined.sv
+    Info (12023): Found entity 1: pipelined File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/pipelined.sv Line: 2
+    Info (12023): Found entity 2: pipelined_testbench File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/pipelined.sv Line: 157
+Info (12021): Found 1 design units, including 1 entities, in source file if_id.sv
+    Info (12023): Found entity 1: IF_ID File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/IF_ID.sv Line: 2
+Info (12021): Found 1 design units, including 1 entities, in source file id_ex.sv
+    Info (12023): Found entity 1: ID_EX File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/ID_EX.sv Line: 2
+Info (12021): Found 1 design units, including 1 entities, in source file ex_mem.sv
+    Info (12023): Found entity 1: EX_MEM File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/EX_MEM.sv Line: 2
+Info (12021): Found 1 design units, including 1 entities, in source file mem_wr.sv
+    Info (12023): Found entity 1: MEM_WR File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/MEM_WR.sv Line: 2
+Info (12127): Elaborating entity "pipelined" for the top level hierarchy
+Info (12128): Elaborating entity "programCounter" for hierarchy "programCounter:current" File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/pipelined.sv Line: 18
+Info (12128): Elaborating entity "D_FF" for hierarchy "programCounter:current|D_FF:eachDFF[0].flippyflop" File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/programCounter.sv Line: 10
+Info (12128): Elaborating entity "instructmem" for hierarchy "instructmem:instruction" File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/pipelined.sv Line: 19
+Warning (10175): Verilog HDL warning at instructmem.sv(24): ignoring unsupported system task File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/instructmem.sv Line: 24
+Info (10648): Verilog HDL Display System Task info at instructmem.sv(43): Running benchmark:  File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/instructmem.sv Line: 43
+Info (12128): Elaborating entity "IF_ID" for hierarchy "IF_ID:IF_ID_register" File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/pipelined.sv Line: 26
+Info (12128): Elaborating entity "regmodular" for hierarchy "IF_ID:IF_ID_register|regmodular:PC_IF" File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/IF_ID.sv Line: 9
+Info (12128): Elaborating entity "regmodular" for hierarchy "IF_ID:IF_ID_register|regmodular:instr_IF" File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/IF_ID.sv Line: 10
+Info (12128): Elaborating entity "sign_extend" for hierarchy "sign_extend:unc" File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/pipelined.sv Line: 34
+Info (12128): Elaborating entity "sign_extend" for hierarchy "sign_extend:con" File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/pipelined.sv Line: 35
+Info (12128): Elaborating entity "mux_64_2_1" for hierarchy "mux_64_2_1:CondUncond" File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/pipelined.sv Line: 37
+Info (12128): Elaborating entity "mux2_1" for hierarchy "mux_64_2_1:CondUncond|mux2_1:eachMux[0].remux" File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/mux_64_2_1.sv Line: 10
+Info (12128): Elaborating entity "shifter" for hierarchy "shifter:shifty" File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/pipelined.sv Line: 39
+Info (12128): Elaborating entity "adder_64" for hierarchy "adder_64:BranchPCUpdate" File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/pipelined.sv Line: 41
+Info (12128): Elaborating entity "fullAdder" for hierarchy "adder_64:BranchPCUpdate|fullAdder:addyFirst" File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/adder_64.sv Line: 8
+Info (12128): Elaborating entity "sign_extend" for hierarchy "sign_extend:Addr" File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/pipelined.sv Line: 62
+Info (12128): Elaborating entity "zero_extend" for hierarchy "zero_extend:Imm12" File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/pipelined.sv Line: 63
+Info (12128): Elaborating entity "nor_64" for hierarchy "nor_64:zeroCheckerEX" File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/pipelined.sv Line: 70
+Info (12128): Elaborating entity "nor_16" for hierarchy "nor_64:zeroCheckerEX|nor_16:one" File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/nor_64.sv Line: 9
+Info (12128): Elaborating entity "regfile" for hierarchy "regfile:reggie" File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/pipelined.sv Line: 73
+Info (12128): Elaborating entity "decoder_5_32" for hierarchy "regfile:reggie|decoder_5_32:dec" File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/regfile.sv Line: 14
+Info (12128): Elaborating entity "decoder_2_4" for hierarchy "regfile:reggie|decoder_5_32:dec|decoder_2_4:td" File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/decoder_5_32.sv Line: 10
+Info (12128): Elaborating entity "decoder_3_8" for hierarchy "regfile:reggie|decoder_5_32:dec|decoder_3_8:dec0" File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/decoder_5_32.sv Line: 12
+Info (12128): Elaborating entity "register_64" for hierarchy "regfile:reggie|register_64:eachRegister[0].reggie" File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/regfile.sv Line: 20
+Info (12128): Elaborating entity "mux_64_32_1" for hierarchy "regfile:reggie|mux_64_32_1:mux1" File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/regfile.sv Line: 28
+Info (12128): Elaborating entity "mux32_1" for hierarchy "regfile:reggie|mux_64_32_1:mux1|mux32_1:eachMux[0].muxxy" File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/mux_64_32_1.sv Line: 16
+Info (12128): Elaborating entity "mux8_1" for hierarchy "regfile:reggie|mux_64_32_1:mux1|mux32_1:eachMux[0].muxxy|mux8_1:r0" File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/mux32_1.sv Line: 7
+Info (12128): Elaborating entity "mux4_1" for hierarchy "regfile:reggie|mux_64_32_1:mux1|mux32_1:eachMux[0].muxxy|mux8_1:r0|mux4_1:r0" File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/mux8_1.sv Line: 8
+Info (12128): Elaborating entity "controls" for hierarchy "controls:broisthethinker" File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/pipelined.sv Line: 79
+Info (12128): Elaborating entity "ID_EX" for hierarchy "ID_EX:ID_EX_register" File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/pipelined.sv Line: 95
+Info (12128): Elaborating entity "regmodular" for hierarchy "ID_EX:ID_EX_register|regmodular:ALUSrcReg_ID" File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/ID_EX.sv Line: 29
+Info (12128): Elaborating entity "regmodular" for hierarchy "ID_EX:ID_EX_register|regmodular:ALUOpReg_ID" File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/ID_EX.sv Line: 30
+Info (12128): Elaborating entity "alu" for hierarchy "alu:ALU" File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/pipelined.sv Line: 113
+Info (12128): Elaborating entity "fullAdderSubtractor" for hierarchy "alu:ALU|fullAdderSubtractor:addsubZero" File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/alu.sv Line: 18
+Info (12128): Elaborating entity "D_FF_en" for hierarchy "D_FF_en:zeroFlag" File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/pipelined.sv Line: 118
+Info (12128): Elaborating entity "EX_MEM" for hierarchy "EX_MEM:EX_MEM_register" File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/pipelined.sv Line: 134
+Info (12128): Elaborating entity "regmodular" for hierarchy "EX_MEM:EX_MEM_register|regmodular:Rd_EX" File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/EX_MEM.sv Line: 17
+Info (12128): Elaborating entity "datamem" for hierarchy "datamem:dataMemory" File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/pipelined.sv Line: 142
+Warning (10175): Verilog HDL warning at datamem.sv(23): ignoring unsupported system task File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/datamem.sv Line: 23
+Info (10264): Verilog HDL Case Statement information at datamem.sv(43): all case item expressions in this case statement are onehot File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/datamem.sv Line: 43
+Error (10232): Verilog HDL error at datamem.sv(58): index 71 cannot fall outside the declared range [63:0] for vector "read_data" File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/datamem.sv Line: 58
+Error (10232): Verilog HDL error at datamem.sv(58): index 64 cannot fall outside the declared range [63:0] for vector "read_data" File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/datamem.sv Line: 58
+Warning (10240): Verilog HDL Always Construct warning at datamem.sv(55): inferring latch(es) for variable "i", which holds its previous value in one or more paths through the always construct File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/datamem.sv Line: 55
+Error (10166): SystemVerilog RTL Coding error at datamem.sv(55): always_comb construct does not infer purely combinational logic. File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/datamem.sv Line: 55
+Error (12152): Can't elaborate user hierarchy "datamem:dataMemory" File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/pipelined.sv Line: 142
+Info (144001): Generated suppressed messages file C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/output_files/DE1_SoC.map.smsg
+Error: Quartus Prime Analysis & Synthesis was unsuccessful. 4 errors, 4 warnings
+    Error: Peak virtual memory: 4853 megabytes
+    Error: Processing ended: Thu Nov 20 14:11:17 2025
+    Error: Elapsed time: 00:00:15
+    Error: Total CPU time (on all processors): 00:00:30
 
 
 +------------------------------------------+
 ; Analysis & Synthesis Suppressed Messages ;
 +------------------------------------------+
-The suppressed messages can be found in C:/Users/brayd/Documents/GitHub/my-cpu/Single Cycle Ver/output_files/DE1_SoC.map.smsg.
+The suppressed messages can be found in C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/output_files/DE1_SoC.map.smsg.
 
 

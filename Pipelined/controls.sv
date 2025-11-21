@@ -107,7 +107,7 @@ module controls (Reg2Loc, UncondBr, BrTaken, RegWrite, MemWrite, ALUOp, ALUSrc, 
 			
 			B: begin
 				Reg2Loc 	= 1'bX;
-				ALUSrc 	= 2'b111;
+				ALUSrc 	= 2'bX;
 				MemToReg = 1'bX;
 				RegWrite = 1'b0;
 				MemWrite = 1'b0;
@@ -150,6 +150,18 @@ module controls (Reg2Loc, UncondBr, BrTaken, RegWrite, MemWrite, ALUOp, ALUSrc, 
 				BrTaken 	= 1'b0;
 				UncondBr = 1'bX;
 				ALUOp 	= 3'b000; 
+				flagWrite = 1'b0;
+			end
+			
+			default: begin
+				Reg2Loc 	= 1'bX;
+				ALUSrc 	= 2'bXX;
+				MemToReg = 1'bX;
+				RegWrite = 1'b0;
+				MemWrite = 1'b0;
+				BrTaken 	= 1'bX;
+				UncondBr = 1'bX;
+				ALUOp 	= 3'bXXX; 
 				flagWrite = 1'b0;
 			end
 		endcase

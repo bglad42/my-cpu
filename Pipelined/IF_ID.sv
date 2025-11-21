@@ -1,3 +1,4 @@
+`timescale 1ns/1ps
 module IF_ID (clk, PCin, PCout, instr, instr_out, reset);
 	input logic clk, reset;
 	input logic [63:0] PCin;

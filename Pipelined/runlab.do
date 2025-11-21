@@ -28,16 +28,20 @@ vlog "./adder_64.sv"
 vlog "./datamem.sv"
 vlog "./instructmem.sv"
 vlog "./programCounter.sv"
-vlog "./singleCycle.sv"
+vlog "./pipelined.sv"
 vlog "./controls.sv"
 vlog "./zero_extend.sv"
 vlog "./D_FF_en.sv"
-
+vlog "./IF_ID.sv"
+vlog "./ID_EX.sv"
+vlog "./EX_MEM.sv"
+vlog "./MEM_WR.sv"
+vlog "./regmodular.sv"
 
 # Call vsim to invoke simulator
 #     Make sure the last item on the line is the name of the
 #     testbench module you want to execute.
-vsim -novopt -voptargs="+acc" -lib work singleCycle_testbench
+vsim -novopt -voptargs="+acc" -lib work pipelined_testbench
 
 # Source the wave do file
 #     This should be the file that sets up the signal window for
