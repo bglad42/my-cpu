@@ -27,6 +27,7 @@ module ID_EX (//controls
 	
 	
 	regmodular #(.WIDTH(2)) ALUSrcReg_ID (.out(ALUSrc_out), .in(ALUSrc), .clk, .reset);
+	regmodular #(.WIDTH(5)) Rd_ID (.out(Rd_out), .in(Rd), .clk, .reset);
 	regmodular #(.WIDTH(3)) ALUOpReg_ID (.out(ALUOp_out), .in(ALUOp), .clk, .reset);
 	regmodular #(.WIDTH(64)) DaReg_ID (.out(Da_out), .in(Da), .clk, .reset);
 	regmodular #(.WIDTH(64)) DbReg_ID (.out(Db_out), .in(Db), .clk, .reset);

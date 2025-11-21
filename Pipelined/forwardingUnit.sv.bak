@@ -1,0 +1,10 @@
+`timescale 1ns/1ps
+
+module forwardingUnit (addrA, addrB, ALUreg, regWrite_ALU, );
+	input logic;
+	output logic;
+	
+	always_comb begin
+		case()
+	end
+endmodule
