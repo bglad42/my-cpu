@@ -4,20 +4,30 @@ add wave -noupdate /pipelined_testbench/clk
 add wave -noupdate /pipelined_testbench/reset
 add wave -noupdate /pipelined_testbench/i
 add wave -noupdate -radix decimal /pipelined_testbench/dut/reggie/dat
-add wave -noupdate -radix decimal /pipelined_testbench/dut/Da
-add wave -noupdate /pipelined_testbench/dut/Da_cntrl
-add wave -noupdate /pipelined_testbench/dut/Da_EX
-add wave -noupdate /pipelined_testbench/dut/DAddr
-add wave -noupdate /pipelined_testbench/dut/DAddr_EX
-add wave -noupdate /pipelined_testbench/dut/Daddr_MEM
-add wave -noupdate /pipelined_testbench/dut/reggie/ReadData1
-add wave -noupdate /pipelined_testbench/dut/reggie/ReadRegister1
 add wave -noupdate /pipelined_testbench/dut/instr
 add wave -noupdate /pipelined_testbench/dut/instr_ID
+add wave -noupdate -radix decimal /pipelined_testbench/dut/newpc
+add wave -noupdate -radix decimal /pipelined_testbench/dut/pc
+add wave -noupdate -radix decimal /pipelined_testbench/dut/branchPC
+add wave -noupdate -radix decimal /pipelined_testbench/dut/Imm
+add wave -noupdate -radix decimal /pipelined_testbench/dut/Imm_EX
+add wave -noupdate /pipelined_testbench/dut/RegWrite_ID
+add wave -noupdate /pipelined_testbench/dut/RegWrite_EX
+add wave -noupdate /pipelined_testbench/dut/RegWrite_WR
+add wave -noupdate /pipelined_testbench/dut/Da
+add wave -noupdate /pipelined_testbench/dut/Da_forward
+add wave -noupdate /pipelined_testbench/dut/Da_EX
+add wave -noupdate /pipelined_testbench/dut/ALU/result
+add wave -noupdate /pipelined_testbench/dut/ALUResult_EX
+add wave -noupdate /pipelined_testbench/dut/ALUResult_MEM
+add wave -noupdate /pipelined_testbench/dut/WriteData
+add wave -noupdate /pipelined_testbench/dut/WriteData_WR
+add wave -noupdate /pipelined_testbench/dut/ALU/A
+add wave -noupdate /pipelined_testbench/dut/ALU/B
 TreeUpdate [SetDefaultTree]
-WaveRestoreCursors {{Cursor 1} {13046953 ps} 0}
+WaveRestoreCursors {{Cursor 1} {13367123 ps} 0}
 quietly wave cursor active 1
-configure wave -namecolwidth 150
+configure wave -namecolwidth 151
 configure wave -valuecolwidth 100
 configure wave -justifyvalue left
 configure wave -signalnamewidth 1
@@ -31,4 +41,4 @@ configure wave -griddelta 40
 configure wave -timeline 0
 configure wave -timelineunits ps
 update
-WaveRestoreZoom {4995702 ps} {21648046 ps}
+WaveRestoreZoom {0 ps} {33796876 ps}

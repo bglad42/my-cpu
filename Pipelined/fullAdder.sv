@@ -1,4 +1,4 @@
-`timescale 1ps/1ps
+`timescale 1ns/1ps
 
 module fullAdder (sum, Cout, Cin, A, B);
 	output logic sum, Cout;

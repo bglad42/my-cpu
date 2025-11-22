@@ -12,10 +12,10 @@ module pipelined (clk, reset);
 	logic zero, overflow, carryout, negative;
 	wire ALUz, ALUo, ALUc, ALUn, flagWrite_EX;
 	
-	D_FF_en zeroFlag 		(.q(zero), 		.d(ALUz), .clk, .reset, .en(flagWrite_EX));
-	D_FF_en overflowFlag (.q(overflow), .d(ALUo), .clk, .reset, .en(flagWrite_EX));
-	D_FF_en carryoutFlag (.q(carryout), .d(ALUc), .clk, .reset, .en(flagWrite_EX));
-	D_FF_en negativeFlag (.q(negative), .d(ALUn), .clk, .reset, .en(flagWrite_EX));
+//	D_FF_en zeroFlag 		(.q(zero), 		.d(ALUz), .clk, .reset, .en(flagWrite_EX));
+//	D_FF_en overflowFlag (.q(overflow), .d(ALUo), .clk, .reset, .en(flagWrite_EX));	//might be redundant???
+//	D_FF_en carryoutFlag (.q(carryout), .d(ALUc), .clk, .reset, .en(flagWrite_EX));	//might be redundant???
+//	D_FF_en negativeFlag (.q(negative), .d(ALUn), .clk, .reset, .en(flagWrite_EX));	
 	
 	wire RegWrite_WR;
 	wire [4:0] Rd_WR;
@@ -28,6 +28,7 @@ module pipelined (clk, reset);
 	wire [4:0] Rd_EX, Rd_MEM;
 	
 	// branching
+	wire [63:0] pc_ID;
 	
 	wire [63:0] updateloc, uncond, cond, branch, nobranch, branchPC;
 	
@@ -36,7 +37,7 @@ module pipelined (clk, reset);
 	
 	programCounter current (.q(pc), .d(newpc), .clk(clk), .reset(reset)); // out to pc, in from newpc
 	
-	adder_64 BranchPCUpdate (.out(branchPC), .A(pc), .B(branch)); // add branch to pc, send to branchPC for update
+	adder_64 BranchPCUpdate (.out(branchPC), .A(pc_ID), .B(branch)); // add branch to pc, send to branchPC for update
 	adder_64 PCUpdate 		(.out(nobranch), .A(pc), .B(64'd4)); // update pc on no branch
 	mux_64_2_1 branchOrNot	(.out(newpc), .A(nobranch), .B(branchPC), .sel(BrTaken)); // select new pc address 
 	
@@ -45,7 +46,7 @@ module pipelined (clk, reset);
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
-	wire [63:0] pc_ID;
+	//wire [63:0] pc_ID;
 	wire [31:0] instr_ID;
 	IF_ID IF_ID_register (.PCin(pc), .PCout(pc_ID), .instr(instr), .instr_out(instr_ID), .clk, .reset);
 	
@@ -104,7 +105,7 @@ module pipelined (clk, reset);
 	wire RegWrite_ID;
 	controls broisthethinker (.Reg2Loc(Reg2Loc), .UncondBr(UncondBr), .BrTaken(BrTaken), .RegWrite(RegWrite_ID), 
 									  .MemWrite(MemWrite), .ALUOp(ALUOp), .ALUSrc(ALUSrc), .MemToReg(MemToReg), 
-									  .instr(instr_ID), .zero(zero), .negative(negative), .overflow(overflow), // TODO: correct flags from register
+									  .instr(instr_ID), .zero(zero), .negative(ALUn), .overflow(ALUo), // TODO: correct flags from register
 									  .flagWrite(flagWrite), .ALUz(ID_zero));
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~					
@@ -178,7 +179,7 @@ module pipelined_testbench();
 	initial begin
 		reset = 1;	@(posedge clk);
 		reset = 0;	@(posedge clk);
-		for (i = 0; i < 100; i++) begin
+		for (i = 0; i < 50; i++) begin
 			@(posedge clk);
 		end
 		$stop;

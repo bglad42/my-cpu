@@ -1,4 +1,4 @@
-`timescale 1ps/1ps
+`timescale 1ns/1ps
 
 module fullAdderSubtractor (A, B, Cout, Cin, sum, subtract);
 	
