@@ -1,4 +1,4 @@
-`timescale 1ps/1ps
+`timescale 1ns/1ps
 module adder_64 (out, A, B);
 	input logic [63:0] A, B;
 	output logic [63:0] out;

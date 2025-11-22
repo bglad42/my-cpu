@@ -159,7 +159,7 @@ module controls (Reg2Loc, UncondBr, BrTaken, RegWrite, MemWrite, ALUOp, ALUSrc, 
 				MemToReg = 1'bX;
 				RegWrite = 1'b0;
 				MemWrite = 1'b0;
-				BrTaken 	= 1'bX;
+				BrTaken 	= 1'b0;
 				UncondBr = 1'bX;
 				ALUOp 	= 3'bXXX; 
 				flagWrite = 1'b0;

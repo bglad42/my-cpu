@@ -1,4 +1,4 @@
-`timescale 1ps/1ps
+`timescale 1ns/1ps
 
 module mux2_1(out, i0, i1, sel);
 	output logic out;

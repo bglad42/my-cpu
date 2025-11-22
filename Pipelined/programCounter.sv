@@ -1,4 +1,4 @@
-`timescale 1ps/1ps
+`timescale 1ns/1ps
 module programCounter (q, d, clk, reset);
 	output logic [63:0] q;
 	input logic [63:0] d;

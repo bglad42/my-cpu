@@ -1,4 +1,4 @@
-`timescale 1ps/1ps
+`timescale 1ns/1ps
 module mux_64_2_1 (out, A, B, sel);
 	output logic [63:0] out;
 	input logic [63:0] A, B;

@@ -1,4 +1,4 @@
-`timescale 1ps/1ps
+`timescale 1ns/1ps
 module mux_64_32_1 (out, in, ReadRegister);
 	
 	output logic [63:0] out;

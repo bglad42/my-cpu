@@ -1,0 +1,19 @@
+`timescale 1ns/1ps
+module mux_64_4_1 (out, i00, i01, i10, i11, sel);
+	output [63:0] out;
+	input [63:0] i00, i01, i10, i11;
+	input [1:0] sel;
+	
+	genvar i;
+	generate
+		for (i = 0; i < 64; i++) begin : eachmux
+			wire [3:0] temp;
+			assign temp[0] = i00[i];
+			assign temp[1] = i01[i];
+			assign temp[2] = i10[i];
+			assign temp[3] = i11[i];
+			mux4_1 fourMux (.out(out[i]), .in(temp), .sel(sel));
+		end
+	endgenerate
+
+endmodule

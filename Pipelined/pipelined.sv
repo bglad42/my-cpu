@@ -2,7 +2,6 @@
 module pipelined (clk, reset);
 	input logic clk, reset;
 	wire notClk;
-	// generate instruction!
 	
 	wire [31:0] instr;
 	wire [63:0] pc, newpc;
@@ -22,11 +21,25 @@ module pipelined (clk, reset);
 	wire [4:0] Rd_WR;
 	wire [63:0] WriteData_WR;
 	
+	//for forwarding?
+	wire [63:0] Da_EX, Db_EX, WriteData;
+	
+	wire RegWrite_EX, RegWrite_MEM;
+	wire [4:0] Rd_EX, Rd_MEM;
+	
+	// branching
+	
+	wire [63:0] updateloc, uncond, cond, branch, nobranch, branchPC;
+	
 	// Instruction fetch (IF)
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
-	
 	programCounter current (.q(pc), .d(newpc), .clk(clk), .reset(reset)); // out to pc, in from newpc
+	
+	adder_64 BranchPCUpdate (.out(branchPC), .A(pc), .B(branch)); // add branch to pc, send to branchPC for update
+	adder_64 PCUpdate (.out(nobranch), .A(pc), .B(64'd4)); // update pc on no branch
+	mux_64_2_1 branchOrNot (.out(newpc), .A(nobranch), .B(branchPC), .sel(BrTaken)); // select new pc address 
+	
 	instructmem instruction (.instruction(instr), .address(pc), .clk(clk));
 	
 	
@@ -40,7 +53,7 @@ module pipelined (clk, reset);
 	// Register Fetch (ID)
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
-	wire [63:0] updateloc, uncond, cond, branch, nobranch, branchPC;
+	
 	
 	sign_extend #(.WIDTH(26)) unc (.out(uncond), .in(instr_ID[25:0])); // se BrAddr26
 	sign_extend #(.WIDTH(19)) con (.out(cond), .in(instr_ID[23:5])); // se CondAddr19
@@ -48,10 +61,6 @@ module pipelined (clk, reset);
 	mux_64_2_1 CondUncond (.out(updateloc), .A(cond), .B(uncond), .sel(UncondBr)); // selecting UncondBranch or not
 	
 	shifter shifty (.value(updateloc), .direction(1'b0), .distance(6'd2), .result(branch)); //shift result 2 for branch addition
-	
-	adder_64 BranchPCUpdate (.out(branchPC), .A(pc_ID), .B(branch)); // add branch to pc, send to branchPC for update
-	adder_64 PCUpdate (.out(nobranch), .A(pc_ID), .B(64'd4)); // update pc on no branch
-	mux_64_2_1 branchOrNot (.out(newpc), .A(nobranch), .B(branchPC), .sel(BrTaken)); // select new pc address 
 	
 	logic [4:0] Rd, Rm, Rn;
 	assign Rd = instr_ID[4:0];
@@ -66,7 +75,7 @@ module pipelined (clk, reset);
 		end
 	endgenerate
 	
-	wire [63:0] Da, Db;
+	wire [63:0] Da, Db, Da_forward, Db_forward;
 						
 	wire [63:0] DAddr, Imm, LSR;
 	
@@ -82,6 +91,13 @@ module pipelined (clk, reset);
 	
 	regfile reggie (.ReadData1(Da), .ReadData2(Db), .WriteData(WriteData_WR), .ReadRegister1(Rn),
 						.ReadRegister2(Bin), .WriteRegister(Rd_WR), .RegWrite(RegWrite_WR), .clk(notClk), .reset); // decide write signal at WB stage
+						
+	// 00 - zero, 01 - forward from EX, 10 - forward from MEM, 11 - normal operation (Da/Db)
+	wire [1:0] Da_cntrl, Db_cntrl;
+	forwardingUnit squidward (.Da_cntrl, .Db_cntrl, .AddrA(Rn), .AddrB(Bin), .Rd_EX, .Rd_MEM, .RegWrite_EX, .RegWrite_MEM);
+	
+	mux_64_4_1 Da_4word (.out(Da_forward), .i00(Da), .i01(Da_EX), .i10(WriteData), .i11(64'd0), .sel(Da_cntrl)); 
+	mux_64_4_1 Db_4word (.out(Db_forward), .i00(Db), .i01(Da_EX), .i10(WriteData), .i11(64'd0), .sel(Db_cntrl));
 	
 	logic flagWrite;
 	
@@ -90,20 +106,19 @@ module pipelined (clk, reset);
 									  .MemWrite(MemWrite), .ALUOp(ALUOp), .ALUSrc(ALUSrc), .MemToReg(MemToReg), 
 									  .instr(instr_ID), .zero(zero), .negative(negative), .overflow(overflow), // TODO: correct flags from register
 									  .flagWrite(flagWrite), .ALUz(ID_zero));
-	// end register fetch
+	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~					
 	
-	wire RegWrite_EX, MemWrite_EX, MemToReg_EX;
-	wire [4:0] Rd_EX;
+	wire MemWrite_EX, MemToReg_EX;
 	wire [2:0] ALUOp_EX;
 	wire [1:0] ALUSrc_EX;
-	wire [63:0] Da_EX, Db_EX, LS_EX, Imm_EX, DAddr_EX;
+	wire [63:0] LS_EX, Imm_EX, DAddr_EX;
 	
 	ID_EX ID_EX_register (.RegWrite(RegWrite_ID), .MemWrite(MemWrite), .ALUOp(ALUOp), .ALUSrc(ALUSrc), 
 								.MemToReg(MemToReg), .flagWrite(flagWrite), 
 								.RegWrite_out(RegWrite_EX), .MemWrite_out(MemWrite_EX), .ALUOp_out(ALUOp_EX), .ALUSrc_out(ALUSrc_EX),
 								.MemToReg_out(MemToReg_EX), .flagWrite_out(flagWrite_EX),
-								.Imm12Ext(Imm), .Daddr9Ext(DAddr), .LS(LSR), .Rd(Rd), .Da(Da), .Db(Db), 
+								.Imm12Ext(Imm), .Daddr9Ext(DAddr), .LS(LSR), .Rd(Rd), .Da(Da_forward), .Db(Db_forward), 
 								.Imm12Ext_out(Imm_EX), .Daddr9Ext_out(DAddr_EX), .LS_out(LS_EX), .Rd_out(Rd_EX),
 								.Da_out(Da_EX), .Db_out(Db_EX), .clk, .reset);
 								
@@ -112,24 +127,15 @@ module pipelined (clk, reset);
 		
 	wire [63:0] ALU_Bin, ALUResult;
 	
-	generate
-		for (i = 0; i < 64; i++) begin : each4Mux
-			wire [3:0] temp;
-			assign temp[0] = Db_EX[i];
-			assign temp[1] = DAddr_EX[i];
-			assign temp[2] = Imm_EX[i];
-			assign temp[3] = LS_EX[i];
-			mux4_1 alusourcer (.out(ALU_Bin[i]), .in(temp), .sel(ALUSrc_EX));
-		end
-	endgenerate
+	mux_64_4_1 alusourcer (.out(ALU_Bin), .i00(Db_EX), .i01(DAddr_EX), .i10(Imm_EX), .i11(LS_EX), .sel(ALUSrc_EX));
+	
 	alu ALU (.result(ALUResult), .A(Da_EX), .B(ALU_Bin), .cntrl(ALUOp_EX), .negative(ALUn), 
 				.zero(ALUz), .overflow(ALUo), .carry_out(ALUc));
 	
 		
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
-	wire RegWrite_MEM, MemWrite_MEM, MemToReg_MEM, flagWrite_MEM;
-	wire [4:0] Rd_MEM;
+	wire MemWrite_MEM, MemToReg_MEM, flagWrite_MEM;
 	wire [63:0] Db_MEM, Daddr_MEM, ALUResult_MEM;
 	
 	EX_MEM EX_MEM_register (.Db(Db_EX), .Daddr9Ext(DAddr_EX), .MemWrite(MemWrite_EX), .MemToReg(MemToReg_EX), .FlagWrite(flagWrite_EX),
@@ -142,7 +148,7 @@ module pipelined (clk, reset);
 	// Data Memory (MEM)
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
-	wire [63:0] memDataOut, WriteData;
+	wire [63:0] memDataOut;
 	datamem dataMemory (.address(ALUResult_MEM), .write_enable(MemWrite_MEM), .read_enable(1'b1), // read up on xfer size, read enable reqs
 								.write_data(Db_MEM), .clk, .xfer_size(4'b1000), .read_data(memDataOut));
 								
@@ -160,7 +166,7 @@ module pipelined_testbench();
 	
 	logic clk, reset;
 	
-	parameter ClockDelay = 10000;
+	parameter ClockDelay = 5000;
 	pipelined dut (.clk(clk), .reset(reset));
 	
 	initial begin // Set up the clock

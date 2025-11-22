@@ -10,6 +10,7 @@ vlog "./mux8_1.sv"
 vlog "./mux16_1.sv"
 vlog "./mux32_1.sv"
 vlog "./mux_64_2_1.sv"
+vlog "./mux_64_4_1.sv"
 vlog "./mux_64_32_1.sv"
 vlog "./decoder_3_8.sv"
 vlog "./decoder_2_4.sv"
@@ -37,6 +38,7 @@ vlog "./ID_EX.sv"
 vlog "./EX_MEM.sv"
 vlog "./MEM_WR.sv"
 vlog "./regmodular.sv"
+vlog "./forwardingUnit.sv"
 
 # Call vsim to invoke simulator
 #     Make sure the last item on the line is the name of the

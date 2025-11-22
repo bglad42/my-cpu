@@ -1,4 +1,4 @@
-`timescale 1ps/1ps
+`timescale 1ns/1ps
 module mux4_1(out, in, sel);
 	input logic [3:0] in;
 	input logic [1:0] sel;

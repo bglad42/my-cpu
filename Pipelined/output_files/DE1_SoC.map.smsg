@@ -1,8 +1,2 @@
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Warning (10273): Verilog HDL warning at controls.sv(110): extended using "x" or "z" File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/controls.sv Line: 110
-Warning (10030): Net "mem.data_a" at instructmem.sv(38) has no driver or initial value, using a default initial value '0' File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/instructmem.sv Line: 38
-Warning (10030): Net "mem.waddr_a" at instructmem.sv(38) has no driver or initial value, using a default initial value '0' File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/instructmem.sv Line: 38
-Warning (10030): Net "mem.we_a" at instructmem.sv(38) has no driver or initial value, using a default initial value '0' File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/instructmem.sv Line: 38
-Warning (10034): Output port "Rd_out" at ID_EX.sv(19) has no driver File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/ID_EX.sv Line: 19
-Warning (10030): Net "ops[1]" at alu.sv(9) has no driver or initial value, using a default initial value '0' File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/alu.sv Line: 9
-Warning (10030): Net "ops[7]" at alu.sv(9) has no driver or initial value, using a default initial value '0' File: C:/Users/brayd/Documents/GitHub/my-cpu/Pipelined/alu.sv Line: 9
