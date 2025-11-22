@@ -22,7 +22,7 @@ module pipelined (clk, reset);
 	wire [63:0] WriteData_WR;
 	
 	//for forwarding?
-	wire [63:0] Da_EX, Db_EX, WriteData;
+	wire [63:0] Da_EX, Db_EX, ALUResult_EX, WriteData;
 	
 	wire RegWrite_EX, RegWrite_MEM;
 	wire [4:0] Rd_EX, Rd_MEM;
@@ -37,8 +37,8 @@ module pipelined (clk, reset);
 	programCounter current (.q(pc), .d(newpc), .clk(clk), .reset(reset)); // out to pc, in from newpc
 	
 	adder_64 BranchPCUpdate (.out(branchPC), .A(pc), .B(branch)); // add branch to pc, send to branchPC for update
-	adder_64 PCUpdate (.out(nobranch), .A(pc), .B(64'd4)); // update pc on no branch
-	mux_64_2_1 branchOrNot (.out(newpc), .A(nobranch), .B(branchPC), .sel(BrTaken)); // select new pc address 
+	adder_64 PCUpdate 		(.out(nobranch), .A(pc), .B(64'd4)); // update pc on no branch
+	mux_64_2_1 branchOrNot	(.out(newpc), .A(nobranch), .B(branchPC), .sel(BrTaken)); // select new pc address 
 	
 	instructmem instruction (.instruction(instr), .address(pc), .clk(clk));
 	
@@ -96,8 +96,8 @@ module pipelined (clk, reset);
 	wire [1:0] Da_cntrl, Db_cntrl;
 	forwardingUnit squidward (.Da_cntrl, .Db_cntrl, .AddrA(Rn), .AddrB(Bin), .Rd_EX, .Rd_MEM, .RegWrite_EX, .RegWrite_MEM);
 	
-	mux_64_4_1 Da_4word (.out(Da_forward), .i00(Da), .i01(Da_EX), .i10(WriteData), .i11(64'd0), .sel(Da_cntrl)); 
-	mux_64_4_1 Db_4word (.out(Db_forward), .i00(Db), .i01(Da_EX), .i10(WriteData), .i11(64'd0), .sel(Db_cntrl));
+	mux_64_4_1 Da_4word (.out(Da_forward), .i00(Da), .i01(ALUResult_EX), .i10(WriteData), .i11(64'd0), .sel(Da_cntrl)); 
+	mux_64_4_1 Db_4word (.out(Db_forward), .i00(Db), .i01(ALUResult_EX), .i10(WriteData), .i11(64'd0), .sel(Db_cntrl));
 	
 	logic flagWrite;
 	
@@ -125,11 +125,11 @@ module pipelined (clk, reset);
 	// Execute (EX)
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 		
-	wire [63:0] ALU_Bin, ALUResult;
+	wire [63:0] ALU_Bin;
 	
 	mux_64_4_1 alusourcer (.out(ALU_Bin), .i00(Db_EX), .i01(DAddr_EX), .i10(Imm_EX), .i11(LS_EX), .sel(ALUSrc_EX));
 	
-	alu ALU (.result(ALUResult), .A(Da_EX), .B(ALU_Bin), .cntrl(ALUOp_EX), .negative(ALUn), 
+	alu ALU (.result(ALUResult_EX), .A(Da_EX), .B(ALU_Bin), .cntrl(ALUOp_EX), .negative(ALUn), 
 				.zero(ALUz), .overflow(ALUo), .carry_out(ALUc));
 	
 		
@@ -141,7 +141,7 @@ module pipelined (clk, reset);
 	EX_MEM EX_MEM_register (.Db(Db_EX), .Daddr9Ext(DAddr_EX), .MemWrite(MemWrite_EX), .MemToReg(MemToReg_EX), .FlagWrite(flagWrite_EX),
 									.RegWrite(RegWrite_EX), .Rd(Rd_EX), .clk, .reset, 
 									.Db_out(Db_MEM), .Daddr9Ext_out(Daddr_MEM), .MemWrite_out(MemWrite_MEM), .MemToReg_out(MemToReg_MEM),
-									.FlagWrite_out(flagWrite_MEM), .RegWrite_out(RegWrite_MEM), .Rd_out(Rd_MEM), .ALUResult(ALUResult), 
+									.FlagWrite_out(flagWrite_MEM), .RegWrite_out(RegWrite_MEM), .Rd_out(Rd_MEM), .ALUResult(ALUResult_EX), 
 									.ALUResult_out(ALUResult_MEM));
 	
 
