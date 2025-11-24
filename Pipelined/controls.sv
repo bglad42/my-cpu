@@ -1,3 +1,4 @@
+`timescale 1ns/1ps
 module controls (Reg2Loc, UncondBr, BrTaken, RegWrite, MemWrite, ALUOp, ALUSrc, MemToReg, instr, ALUz, zero, negative, overflow, flagWrite);
 	output logic Reg2Loc, UncondBr, BrTaken, RegWrite, MemWrite, MemToReg, flagWrite;
 	output logic [1:0] ALUSrc;

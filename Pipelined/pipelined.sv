@@ -12,10 +12,10 @@ module pipelined (clk, reset);
 	logic zero, overflow, carryout, negative;
 	wire ALUz, ALUo, ALUc, ALUn, flagWrite_EX;
 	
-//	D_FF_en zeroFlag 		(.q(zero), 		.d(ALUz), .clk, .reset, .en(flagWrite_EX));
-//	D_FF_en overflowFlag (.q(overflow), .d(ALUo), .clk, .reset, .en(flagWrite_EX));	//might be redundant???
-//	D_FF_en carryoutFlag (.q(carryout), .d(ALUc), .clk, .reset, .en(flagWrite_EX));	//might be redundant???
-//	D_FF_en negativeFlag (.q(negative), .d(ALUn), .clk, .reset, .en(flagWrite_EX));	
+	D_FF_en zeroFlag 		(.q(zero), 		.d(ALUz), .clk, .reset, .en(flagWrite_EX));
+	D_FF_en overflowFlag (.q(overflow), .d(ALUo), .clk, .reset, .en(flagWrite_EX));	//might be redundant???
+	D_FF_en carryoutFlag (.q(carryout), .d(ALUc), .clk, .reset, .en(flagWrite_EX));	//might be redundant???
+	D_FF_en negativeFlag (.q(negative), .d(ALUn), .clk, .reset, .en(flagWrite_EX));	
 	
 	wire RegWrite_WR;
 	wire [4:0] Rd_WR;
@@ -128,7 +128,7 @@ module pipelined (clk, reset);
 		
 	wire [63:0] ALU_Bin;
 	
-	mux_64_4_1 alusourcer (.out(ALU_Bin), .i00(Db_EX), .i01(DAddr_EX), .i10(Imm_EX), .i11(LS_EX), .sel(ALUSrc_EX));
+	mux_64_4_1 alusourcer (.out(ALU_Bin), .i00(Db_EX), .i01(DAddr_EX), .i10(Imm_EX), .i11(LS_EX), .sel(2'b10));
 	
 	alu ALU (.result(ALUResult_EX), .A(Da_EX), .B(ALU_Bin), .cntrl(ALUOp_EX), .negative(ALUn), 
 				.zero(ALUz), .overflow(ALUo), .carry_out(ALUc));

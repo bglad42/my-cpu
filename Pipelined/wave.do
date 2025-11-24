@@ -14,18 +14,18 @@ add wave -noupdate -radix decimal /pipelined_testbench/dut/Imm_EX
 add wave -noupdate /pipelined_testbench/dut/RegWrite_ID
 add wave -noupdate /pipelined_testbench/dut/RegWrite_EX
 add wave -noupdate /pipelined_testbench/dut/RegWrite_WR
-add wave -noupdate /pipelined_testbench/dut/Da
-add wave -noupdate /pipelined_testbench/dut/Da_forward
-add wave -noupdate /pipelined_testbench/dut/Da_EX
-add wave -noupdate /pipelined_testbench/dut/ALU/result
+add wave -noupdate -radix decimal /pipelined_testbench/dut/ALU/A
+add wave -noupdate -radix decimal /pipelined_testbench/dut/ALU/B
+add wave -noupdate -radix decimal /pipelined_testbench/dut/ALU_Bin
+add wave -noupdate -radix decimal /pipelined_testbench/dut/Imm_EX
+add wave -noupdate /pipelined_testbench/dut/ALUSrc_EX
+add wave -noupdate /pipelined_testbench/dut/ALUSrc
 add wave -noupdate /pipelined_testbench/dut/ALUResult_EX
 add wave -noupdate /pipelined_testbench/dut/ALUResult_MEM
-add wave -noupdate /pipelined_testbench/dut/WriteData
 add wave -noupdate /pipelined_testbench/dut/WriteData_WR
-add wave -noupdate /pipelined_testbench/dut/ALU/A
-add wave -noupdate /pipelined_testbench/dut/ALU/B
+add wave -noupdate /pipelined_testbench/dut/ALU/finout
 TreeUpdate [SetDefaultTree]
-WaveRestoreCursors {{Cursor 1} {13367123 ps} 0}
+WaveRestoreCursors {{Cursor 1} {7742016 ps} 0}
 quietly wave cursor active 1
 configure wave -namecolwidth 151
 configure wave -valuecolwidth 100
