@@ -8,7 +8,7 @@ module controls (Reg2Loc, UncondBr, BrTaken, RegWrite, MemWrite, ALUOp, ALUSrc, 
 	
 	enum logic [10:0] {
 		ADDS 	= 11'b10101011000,
-		ADDI	= 11'b10010001000,
+		ADDI	= 11'b1001000100X,
 		AND 	= 11'b10001010000,
 		SUBS 	= 11'b11101011000,
 		LDUR	= 11'b11111000010,
@@ -17,7 +17,7 @@ module controls (Reg2Loc, UncondBr, BrTaken, RegWrite, MemWrite, ALUOp, ALUSrc, 
 		CBZ 	= 11'b10110100XXX,
 		BLT 	= 11'b01010100XXX,
 		EOR 	= 11'b11001010000,
-		LSR	= 11'b11010011011
+		LSR	= 11'b11010011010
 	} OpCodes;
 	
 	always_comb begin

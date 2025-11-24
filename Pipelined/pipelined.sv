@@ -83,7 +83,7 @@ module pipelined (clk, reset);
 	sign_extend #(.WIDTH(9)) Addr (.out(DAddr), .in(instr_ID[20:12]));
 	zero_extend #(.WIDTH(12)) Imm12 (.out(Imm), .in(instr_ID[21:10]));
 	
-	shifter LogicalShiftRight (.value(Da), .direction(1'b1), .distance(instr_ID[15:10]), .result(LSR));
+	shifter LogicalShiftRight (.value(Da_forward), .direction(1'b1), .distance(instr_ID[15:10]), .result(LSR));
 	
 	not #50 clkHack (notClk, clk);
 	
@@ -128,7 +128,7 @@ module pipelined (clk, reset);
 		
 	wire [63:0] ALU_Bin;
 	
-	mux_64_4_1 alusourcer (.out(ALU_Bin), .i00(Db_EX), .i01(DAddr_EX), .i10(Imm_EX), .i11(LS_EX), .sel(2'b10));
+	mux_64_4_1 alusourcer (.out(ALU_Bin), .i00(Db_EX), .i01(DAddr_EX), .i10(Imm_EX), .i11(LS_EX), .sel(ALUSrc_EX));
 	
 	alu ALU (.result(ALUResult_EX), .A(Da_EX), .B(ALU_Bin), .cntrl(ALUOp_EX), .negative(ALUn), 
 				.zero(ALUz), .overflow(ALUo), .carry_out(ALUc));
@@ -167,7 +167,7 @@ module pipelined_testbench();
 	
 	logic clk, reset;
 	
-	parameter ClockDelay = 5000;
+	parameter ClockDelay = 10000;
 	pipelined dut (.clk(clk), .reset(reset));
 	
 	initial begin // Set up the clock
@@ -179,7 +179,7 @@ module pipelined_testbench();
 	initial begin
 		reset = 1;	@(posedge clk);
 		reset = 0;	@(posedge clk);
-		for (i = 0; i < 50; i++) begin
+		for (i = 0; i < 100; i++) begin
 			@(posedge clk);
 		end
 		$stop;

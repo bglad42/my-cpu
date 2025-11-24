@@ -1,4 +1,4 @@
-`timescale 1ps/1ps
+`timescale 1ns/1ps
 module zero_extend #(parameter WIDTH = 1) (out, in);
 	input logic [WIDTH-1:0] in;
 	output logic [63:0] out;
