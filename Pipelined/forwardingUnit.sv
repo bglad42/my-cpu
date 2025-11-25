@@ -1,9 +1,10 @@
 `timescale 1ns/1ps
 
-module forwardingUnit (Da_cntrl, Db_cntrl, AddrA, AddrB, Rd_EX, Rd_MEM, RegWrite_EX, RegWrite_MEM); // must be able to forward from Execute and Mem stages
+module forwardingUnit (Da_cntrl, Db_cntrl, AddrA, AddrB, Rd_EX, Rd_MEM, RegWrite_EX, RegWrite_MEM, UncondBr, flagWrite_EX, flag_cntrl); // must be able to forward from Execute and Mem stages
 	input logic [4:0] AddrA, AddrB, Rd_EX, Rd_MEM;
-	input logic RegWrite_EX, RegWrite_MEM;
+	input logic RegWrite_EX, RegWrite_MEM, UncondBr, flagWrite_EX;
 	output logic [1:0] Da_cntrl, Db_cntrl;
+	output logic flag_cntrl;
 	
 	// 00 - normal operation, 01 - from EX , 10 - from MEM 
 	always_comb begin
@@ -24,5 +25,11 @@ module forwardingUnit (Da_cntrl, Db_cntrl, AddrA, AddrB, Rd_EX, Rd_MEM, RegWrite
     end else if (RegWrite_MEM && (Rd_MEM != 5'd31) && (AddrB == Rd_MEM)) begin
         Db_cntrl = 2'b10; // from MEM
     end
+	 
+	 if (flagWrite_EX && ~UncondBr) begin
+		flag_cntrl = 1'b1;
+	 end else begin
+		flag_cntrl = 1'b0;
+	 end
 end
 endmodule

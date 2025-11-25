@@ -11,11 +11,11 @@ module pipelined (clk, reset);
 	
 	logic zero, overflow, carryout, negative;
 	wire ALUz, ALUo, ALUc, ALUn, flagWrite_EX;
-	
-	D_FF_en zeroFlag 		(.q(zero), 		.d(ALUz), .clk, .reset, .en(flagWrite_EX));
-	D_FF_en overflowFlag (.q(overflow), .d(ALUo), .clk, .reset, .en(flagWrite_EX));	//might be redundant???
-	D_FF_en carryoutFlag (.q(carryout), .d(ALUc), .clk, .reset, .en(flagWrite_EX));	//might be redundant???
-	D_FF_en negativeFlag (.q(negative), .d(ALUn), .clk, .reset, .en(flagWrite_EX));	
+//	
+//	D_FF_en zeroFlag 		(.q(zero), 		.d(ALUz), .clk, .reset, .en(flagWrite_EX));
+//	D_FF_en overflowFlag (.q(overflow), .d(ALUo), .clk, .reset, .en(flagWrite_EX));	//might be redundant???
+//	D_FF_en carryoutFlag (.q(carryout), .d(ALUc), .clk, .reset, .en(flagWrite_EX));	//might be redundant???
+//	D_FF_en negativeFlag (.q(negative), .d(ALUn), .clk, .reset, .en(flagWrite_EX));	
 	
 	wire RegWrite_WR;
 	wire [4:0] Rd_WR;
@@ -87,26 +87,37 @@ module pipelined (clk, reset);
 	
 	not #50 clkHack (notClk, clk);
 	
-	wire ID_zero;
-	nor_64 zeroCheckerEX (.out(ID_zero), .in(Db));
 	
 	regfile reggie (.ReadData1(Da), .ReadData2(Db), .WriteData(WriteData_WR), .ReadRegister1(Rn),
 						.ReadRegister2(Bin), .WriteRegister(Rd_WR), .RegWrite(RegWrite_WR), .clk(notClk), .reset); // decide write signal at WB stage
 						
 	// 00 - zero, 01 - forward from EX, 10 - forward from MEM, 11 - normal operation (Da/Db)
 	wire [1:0] Da_cntrl, Db_cntrl;
-	forwardingUnit squidward (.Da_cntrl, .Db_cntrl, .AddrA(Rn), .AddrB(Bin), .Rd_EX, .Rd_MEM, .RegWrite_EX, .RegWrite_MEM);
+	wire flag_cntrl;
+	wire flagWrite;
 	
-	mux_64_4_1 Da_4word (.out(Da_forward), .i00(Da), .i01(ALUResult_EX), .i10(WriteData), .i11(64'd0), .sel(Da_cntrl)); 
+	flagregister theflags (.flagWrite(flagWrite_EX), .zero_in(ALUz), .negative_in(ALUn), .overflow_in(ALUo), .carryout_in(ALUc), .zero, .negative, .overflow, .carryout, .clk, .reset); // write da flags
+	
+	forwardingUnit squidward (.Da_cntrl, .Db_cntrl, .AddrA(Rn), .AddrB(Bin), .Rd_EX, .Rd_MEM, .RegWrite_EX, .RegWrite_MEM, .UncondBr, .flagWrite_EX, .flag_cntrl);
+	
+	//in case of BLT, we need flags potentially earlier/later
+	
+	mux_64_4_1 Da_4word (.out(Da_forward), .i00(Da), .i01(ALUResult_EX), .i10(WriteData), .i11(64'd0), .sel(Da_cntrl));
 	mux_64_4_1 Db_4word (.out(Db_forward), .i00(Db), .i01(ALUResult_EX), .i10(WriteData), .i11(64'd0), .sel(Db_cntrl));
 	
-	logic flagWrite;
+	wire ID_zero;
+	nor_64 zeroCheckerEX (.out(ID_zero), .in(Db_forward));
+	
+	wire overflow_forward, negative_forward, zero_forward;
+	mux2_1 negativeForward (.out(negative_forward), .i0(negative), .i1(ALUn), .sel(flag_cntrl));
+	mux2_1 overflowForward (.out(overflow_forward), .i0(overflow), .i1(ALUo), .sel(flag_cntrl));
+	mux2_1 zeroForward	  (.out(zero_forward), 		.i0(zero), 		.i1(ALUz), .sel(flag_cntrl));
 	
 	wire RegWrite_ID;
 	controls broisthethinker (.Reg2Loc(Reg2Loc), .UncondBr(UncondBr), .BrTaken(BrTaken), .RegWrite(RegWrite_ID), 
 									  .MemWrite(MemWrite), .ALUOp(ALUOp), .ALUSrc(ALUSrc), .MemToReg(MemToReg), 
-									  .instr(instr_ID), .zero(zero), .negative(ALUn), .overflow(ALUo), // TODO: correct flags from register
-									  .flagWrite(flagWrite), .ALUz(ID_zero));
+									  .instr(instr_ID), .zero(ID_zero), .negative(negative_forward), .overflow(overflow_forward), // TODO: correct flags from register
+									  .flagWrite(flagWrite));
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~					
 	
@@ -179,7 +190,7 @@ module pipelined_testbench();
 	initial begin
 		reset = 1;	@(posedge clk);
 		reset = 0;	@(posedge clk);
-		for (i = 0; i < 100; i++) begin
+		for (i = 0; i < 1500; i++) begin
 			@(posedge clk);
 		end
 		$stop;

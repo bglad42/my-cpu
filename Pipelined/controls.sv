@@ -1,10 +1,10 @@
 `timescale 1ns/1ps
-module controls (Reg2Loc, UncondBr, BrTaken, RegWrite, MemWrite, ALUOp, ALUSrc, MemToReg, instr, ALUz, zero, negative, overflow, flagWrite);
+module controls (Reg2Loc, UncondBr, BrTaken, RegWrite, MemWrite, ALUOp, ALUSrc, MemToReg, instr, zero, negative, overflow, flagWrite);
 	output logic Reg2Loc, UncondBr, BrTaken, RegWrite, MemWrite, MemToReg, flagWrite;
 	output logic [1:0] ALUSrc;
 	output logic [2:0] ALUOp;	
 	input logic [31:0] instr;
-	input logic zero, negative, overflow, ALUz;
+	input logic zero, negative, overflow;
 	
 	enum logic [10:0] {
 		ADDS 	= 11'b10101011000,
@@ -124,7 +124,7 @@ module controls (Reg2Loc, UncondBr, BrTaken, RegWrite, MemWrite, ALUOp, ALUSrc, 
 				MemToReg = 1'bX;
 				RegWrite = 1'b0;
 				MemWrite = 1'b0;
-				BrTaken 	= ALUz;
+				BrTaken 	= zero;
 				UncondBr = 1'b0;
 				ALUOp 	= 3'b000;
 				flagWrite = 1'b0;	
