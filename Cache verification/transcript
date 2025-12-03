@@ -1,0 +1,313 @@
+# Reading C:/intelFPGA_lite/17.0/modelsim_ase/tcl/vsim/pref.tcl
+do runlab.do
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 21:56:14 on Nov 29,2025
+# vlog -reportprogress 300 ./main_memory.svp 
+# 
+# Top level modules:
+# End time: 21:56:14 on Nov 29,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 21:56:14 on Nov 29,2025
+# vlog -reportprogress 300 ./write_buffer.svp 
+# ** Warning: ./write_buffer.svp(32): (vlog-2583) [SVCHK] - Some checking for conflicts with always_comb and always_latch variables not yet supported. Run vopt to provide additional design-level checks.
+# ** Warning: ./write_buffer.svp(32): (vlog-2583) [SVCHK] - Some checking for conflicts with always_comb and always_latch variables not yet supported. Run vopt to provide additional design-level checks.
+# ** Warning: ./write_buffer.svp(32): (vlog-2583) [SVCHK] - Some checking for conflicts with always_comb and always_latch variables not yet supported. Run vopt to provide additional design-level checks.
+# ** Warning: ./write_buffer.svp(32): (vlog-2583) [SVCHK] - Some checking for conflicts with always_comb and always_latch variables not yet supported. Run vopt to provide additional design-level checks.
+# ** Warning: ./write_buffer.svp(32): (vlog-2583) [SVCHK] - Some checking for conflicts with always_comb and always_latch variables not yet supported. Run vopt to provide additional design-level checks.
+# ** Warning: ./write_buffer.svp(32): (vlog-2583) [SVCHK] - Some checking for conflicts with always_comb and always_latch variables not yet supported. Run vopt to provide additional design-level checks.
+# ** Warning: ./write_buffer.svp(32): (vlog-2583) [SVCHK] - Some checking for conflicts with always_comb and always_latch variables not yet supported. Run vopt to provide additional design-level checks.
+# ** Warning: ./write_buffer.svp(32): (vlog-2583) [SVCHK] - Some checking for conflicts with always_comb and always_latch variables not yet supported. Run vopt to provide additional design-level checks.
+# ** Warning: ./write_buffer.svp(32): (vlog-2583) [SVCHK] - Some checking for conflicts with always_comb and always_latch variables not yet supported. Run vopt to provide additional design-level checks.
+# ** Warning: ./write_buffer.svp(32): (vlog-2583) [SVCHK] - Some checking for conflicts with always_comb and always_latch variables not yet supported. Run vopt to provide additional design-level checks.
+# ** Warning: ./write_buffer.svp(32): (vlog-2583) [SVCHK] - Some checking for conflicts with always_comb and always_latch variables not yet supported. Run vopt to provide additional design-level checks.
+# ** Warning: ./write_buffer.svp(32): (vlog-2583) [SVCHK] - Some checking for conflicts with always_comb and always_latch variables not yet supported. Run vopt to provide additional design-level checks.
+# ** Warning: ./write_buffer.svp(32): (vlog-2583) [SVCHK] - Some checking for conflicts with always_comb and always_latch variables not yet supported. Run vopt to provide additional design-level checks.
+# ** Warning: ./write_buffer.svp(32): (vlog-2583) [SVCHK] - Some checking for conflicts with always_comb and always_latch variables not yet supported. Run vopt to provide additional design-level checks.
+# ** Warning: ./write_buffer.svp(32): (vlog-2583) [SVCHK] - Some checking for conflicts with always_comb and always_latch variables not yet supported. Run vopt to provide additional design-level checks.
+# ** Warning: ./write_buffer.svp(32): (vlog-2583) [SVCHK] - Some checking for conflicts with always_comb and always_latch variables not yet supported. Run vopt to provide additional design-level checks.
+# ** Warning: ./write_buffer.svp(32): (vlog-2583) [SVCHK] - Some checking for conflicts with always_comb and always_latch variables not yet supported. Run vopt to provide additional design-level checks.
+# ** Warning: ./write_buffer.svp(32): (vlog-2583) [SVCHK] - Some checking for conflicts with always_comb and always_latch variables not yet supported. Run vopt to provide additional design-level checks.
+# ** Warning: ./write_buffer.svp(32): (vlog-2583) [SVCHK] - Some checking for conflicts with always_comb and always_latch variables not yet supported. Run vopt to provide additional design-level checks.
+# ** Warning: ./write_buffer.svp(32): (vlog-2583) [SVCHK] - Some checking for conflicts with always_comb and always_latch variables not yet supported. Run vopt to provide additional design-level checks.
+# 
+# Top level modules:
+# End time: 21:56:15 on Nov 29,2025, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 20
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 21:56:15 on Nov 29,2025
+# vlog -reportprogress 300 ./cache.svp 
+# 
+# Top level modules:
+# End time: 21:56:15 on Nov 29,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 21:56:15 on Nov 29,2025
+# vlog -reportprogress 300 ./DataMemory.svp 
+# 
+# Top level modules:
+# End time: 21:56:16 on Nov 29,2025, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 21:56:16 on Nov 29,2025
+# vlog -reportprogress 300 ./lab5.sv 
+# -- Compiling module lab5
+# -- Compiling module lab5_testbench
+# 
+# Top level modules:
+# 	lab5_testbench
+# End time: 21:56:16 on Nov 29,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vsim -voptargs=""+acc"" -t 1ps -lib work lab5_testbench 
+# Start time: 21:56:18 on Nov 29,2025
+# Loading sv_std.std
+# Loading work.lab5_testbench
+# Loading work.lab5
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/MODEL_NUMBER'.
+# Executing ONERROR command at macro ./lab5_wave.do line 17
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/DMEM_ADDRESS_WIDTH'.
+# Executing ONERROR command at macro ./lab5_wave.do line 18
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/RANDOM_BITS'.
+# Executing ONERROR command at macro ./lab5_wave.do line 19
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/SCRAMBLE1'.
+# Executing ONERROR command at macro ./lab5_wave.do line 20
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/SCRAMBLE2'.
+# Executing ONERROR command at macro ./lab5_wave.do line 21
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/L1_ADDRESS_WIDTH'.
+# Executing ONERROR command at macro ./lab5_wave.do line 22
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/L2_ADDRESS_WIDTH'.
+# Executing ONERROR command at macro ./lab5_wave.do line 23
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/L3_ADDRESS_WIDTH'.
+# Executing ONERROR command at macro ./lab5_wave.do line 24
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/MM_ADDRESS_WIDTH'.
+# Executing ONERROR command at macro ./lab5_wave.do line 25
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/L1out_WRITE_BUFFER'.
+# Executing ONERROR command at macro ./lab5_wave.do line 26
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/L3_PRESENT'.
+# Executing ONERROR command at macro ./lab5_wave.do line 27
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/L2out_WRITE_BUFFER'.
+# Executing ONERROR command at macro ./lab5_wave.do line 28
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/L3out_WRITE_BUFFER'.
+# Executing ONERROR command at macro ./lab5_wave.do line 29
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/L1_DATA_WIDTH'.
+# Executing ONERROR command at macro ./lab5_wave.do line 30
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/L1_BLOCKSIZE'.
+# Executing ONERROR command at macro ./lab5_wave.do line 31
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/L2_DATA_WIDTH'.
+# Executing ONERROR command at macro ./lab5_wave.do line 32
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/L2_BLOCKSIZE'.
+# Executing ONERROR command at macro ./lab5_wave.do line 33
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/L3_DATA_WIDTH'.
+# Executing ONERROR command at macro ./lab5_wave.do line 34
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/L3_BLOCKSIZE'.
+# Executing ONERROR command at macro ./lab5_wave.do line 35
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/MM_BLOCKSIZE'.
+# Executing ONERROR command at macro ./lab5_wave.do line 36
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/L1_HIT_TIME'.
+# Executing ONERROR command at macro ./lab5_wave.do line 37
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/L2_HIT_TIME'.
+# Executing ONERROR command at macro ./lab5_wave.do line 38
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/L3_HIT_TIME'.
+# Executing ONERROR command at macro ./lab5_wave.do line 39
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/MM_DELAY'.
+# Executing ONERROR command at macro ./lab5_wave.do line 40
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/L1_NUM_BLOCKS'.
+# Executing ONERROR command at macro ./lab5_wave.do line 41
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/L2_NUM_BLOCKS'.
+# Executing ONERROR command at macro ./lab5_wave.do line 42
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/L3_NUM_BLOCKS'.
+# Executing ONERROR command at macro ./lab5_wave.do line 43
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/L1_ASSOC_TEMP'.
+# Executing ONERROR command at macro ./lab5_wave.do line 44
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/L1_ASSOCIATIVITY'.
+# Executing ONERROR command at macro ./lab5_wave.do line 45
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/L2_ASSOC_TEMP'.
+# Executing ONERROR command at macro ./lab5_wave.do line 46
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/L2_ASSOCIATIVITY'.
+# Executing ONERROR command at macro ./lab5_wave.do line 47
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/L3_ASSOC_TEMP'.
+# Executing ONERROR command at macro ./lab5_wave.do line 48
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/L3_ASSOCIATIVITY'.
+# Executing ONERROR command at macro ./lab5_wave.do line 49
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/L1_LRU'.
+# Executing ONERROR command at macro ./lab5_wave.do line 50
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/L1_WRITE_THROUGH'.
+# Executing ONERROR command at macro ./lab5_wave.do line 51
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/L1_WRITE_ALLOCATE'.
+# Executing ONERROR command at macro ./lab5_wave.do line 52
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/L2_LRU'.
+# Executing ONERROR command at macro ./lab5_wave.do line 53
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/L2_WRITE_THROUGH'.
+# Executing ONERROR command at macro ./lab5_wave.do line 54
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/L2_WRITE_ALLOCATE'.
+# Executing ONERROR command at macro ./lab5_wave.do line 55
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/L3_LRU'.
+# Executing ONERROR command at macro ./lab5_wave.do line 56
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/L3_WRITE_THROUGH'.
+# Executing ONERROR command at macro ./lab5_wave.do line 57
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/L3_WRITE_ALLOCATE'.
+# Executing ONERROR command at macro ./lab5_wave.do line 58
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/address'.
+# Executing ONERROR command at macro ./lab5_wave.do line 59
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/data_in'.
+# Executing ONERROR command at macro ./lab5_wave.do line 60
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/bytemask'.
+# Executing ONERROR command at macro ./lab5_wave.do line 61
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/write'.
+# Executing ONERROR command at macro ./lab5_wave.do line 62
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/start_access'.
+# Executing ONERROR command at macro ./lab5_wave.do line 63
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/access_done'.
+# Executing ONERROR command at macro ./lab5_wave.do line 64
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/data_out'.
+# Executing ONERROR command at macro ./lab5_wave.do line 65
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/clk'.
+# Executing ONERROR command at macro ./lab5_wave.do line 66
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/reset'.
+# Executing ONERROR command at macro ./lab5_wave.do line 67
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/l1_int_address'.
+# Executing ONERROR command at macro ./lab5_wave.do line 68
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/l1_int_data_in'.
+# Executing ONERROR command at macro ./lab5_wave.do line 69
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/l1_int_bytemask'.
+# Executing ONERROR command at macro ./lab5_wave.do line 70
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/l1_int_write'.
+# Executing ONERROR command at macro ./lab5_wave.do line 71
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/l1_int_start_access'.
+# Executing ONERROR command at macro ./lab5_wave.do line 72
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/l1_int_access_done'.
+# Executing ONERROR command at macro ./lab5_wave.do line 73
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/l1_int_data_out'.
+# Executing ONERROR command at macro ./lab5_wave.do line 74
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/l1out_address'.
+# Executing ONERROR command at macro ./lab5_wave.do line 75
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/l1out_data_in'.
+# Executing ONERROR command at macro ./lab5_wave.do line 76
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/l1out_bytemask'.
+# Executing ONERROR command at macro ./lab5_wave.do line 77
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/l1out_write'.
+# Executing ONERROR command at macro ./lab5_wave.do line 78
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/l1out_start_access'.
+# Executing ONERROR command at macro ./lab5_wave.do line 79
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/l1out_access_done'.
+# Executing ONERROR command at macro ./lab5_wave.do line 80
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/l1out_data_out'.
+# Executing ONERROR command at macro ./lab5_wave.do line 81
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/l2_int_address'.
+# Executing ONERROR command at macro ./lab5_wave.do line 82
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/l2_int_data_in'.
+# Executing ONERROR command at macro ./lab5_wave.do line 83
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/l2_int_bytemask'.
+# Executing ONERROR command at macro ./lab5_wave.do line 84
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/l2_int_write'.
+# Executing ONERROR command at macro ./lab5_wave.do line 85
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/l2_int_start_access'.
+# Executing ONERROR command at macro ./lab5_wave.do line 86
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/l2_int_access_done'.
+# Executing ONERROR command at macro ./lab5_wave.do line 87
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/l2_int_data_out'.
+# Executing ONERROR command at macro ./lab5_wave.do line 88
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/l2out_address'.
+# Executing ONERROR command at macro ./lab5_wave.do line 89
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/l2out_data_in'.
+# Executing ONERROR command at macro ./lab5_wave.do line 90
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/l2out_bytemask'.
+# Executing ONERROR command at macro ./lab5_wave.do line 91
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/l2out_write'.
+# Executing ONERROR command at macro ./lab5_wave.do line 92
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/l2out_start_access'.
+# Executing ONERROR command at macro ./lab5_wave.do line 93
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/l2out_access_done'.
+# Executing ONERROR command at macro ./lab5_wave.do line 94
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/l2out_data_out'.
+# Executing ONERROR command at macro ./lab5_wave.do line 95
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/l3in_address'.
+# Executing ONERROR command at macro ./lab5_wave.do line 96
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/l3in_data_in'.
+# Executing ONERROR command at macro ./lab5_wave.do line 97
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/l3in_bytemask'.
+# Executing ONERROR command at macro ./lab5_wave.do line 98
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/l3in_write'.
+# Executing ONERROR command at macro ./lab5_wave.do line 99
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/l3in_start_access'.
+# Executing ONERROR command at macro ./lab5_wave.do line 100
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/l3in_access_done'.
+# Executing ONERROR command at macro ./lab5_wave.do line 101
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/l3in_data_out'.
+# Executing ONERROR command at macro ./lab5_wave.do line 102
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/l3_int_address'.
+# Executing ONERROR command at macro ./lab5_wave.do line 103
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/l3_int_data_in'.
+# Executing ONERROR command at macro ./lab5_wave.do line 104
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/l3_int_bytemask'.
+# Executing ONERROR command at macro ./lab5_wave.do line 105
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/l3_int_write'.
+# Executing ONERROR command at macro ./lab5_wave.do line 106
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/l3_int_start_access'.
+# Executing ONERROR command at macro ./lab5_wave.do line 107
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/l3_int_access_done'.
+# Executing ONERROR command at macro ./lab5_wave.do line 108
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/l3_int_data_out'.
+# Executing ONERROR command at macro ./lab5_wave.do line 109
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/l3out_address'.
+# Executing ONERROR command at macro ./lab5_wave.do line 110
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/l3out_data_in'.
+# Executing ONERROR command at macro ./lab5_wave.do line 111
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/l3out_bytemask'.
+# Executing ONERROR command at macro ./lab5_wave.do line 112
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/l3out_write'.
+# Executing ONERROR command at macro ./lab5_wave.do line 113
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/l3out_start_access'.
+# Executing ONERROR command at macro ./lab5_wave.do line 114
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/l3out_access_done'.
+# Executing ONERROR command at macro ./lab5_wave.do line 115
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/l3out_data_out'.
+# Executing ONERROR command at macro ./lab5_wave.do line 116
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/mm_address'.
+# Executing ONERROR command at macro ./lab5_wave.do line 117
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/mm_data_in'.
+# Executing ONERROR command at macro ./lab5_wave.do line 118
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/mm_bytemask'.
+# Executing ONERROR command at macro ./lab5_wave.do line 119
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/mm_write'.
+# Executing ONERROR command at macro ./lab5_wave.do line 120
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/mm_start_access'.
+# Executing ONERROR command at macro ./lab5_wave.do line 121
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/mm_access_done'.
+# Executing ONERROR command at macro ./lab5_wave.do line 122
+# ** Error: (vish-4014) No objects found matching '/lab5_testbench/dut/dmem/mm_data_out'.
+# Executing ONERROR command at macro ./lab5_wave.do line 123
+# .main_pane.wave.interior.cs.body.pw.wf
+# .main_pane.structure.interior.cs.body.struct
+# .main_pane.objects.interior.cs.body.tree
+# 1027.00000 ns Read took         101 cycles
+# 2047.00000 ns Read took         101 cycles
+# 3067.00000 ns Read took         101 cycles
+# 4087.00000 ns Read took         101 cycles
+# 5107.00000 ns Read took         101 cycles
+# 6127.00000 ns Read took         101 cycles
+# 7147.00000 ns Read took         101 cycles
+# 8167.00000 ns Read took         101 cycles
+# 9187.00000 ns Read took         101 cycles
+# 10207.00000 ns Read took         101 cycles
+# 11227.00000 ns Read took         101 cycles
+# 12247.00000 ns Read took         101 cycles
+# 13267.00000 ns Read took         101 cycles
+# 14287.00000 ns Read took         101 cycles
+# 15307.00000 ns Read took         101 cycles
+# 16327.00000 ns Read took         101 cycles
+# 17347.00000 ns Read took         101 cycles
+# 18367.00000 ns Read took         101 cycles
+# 19387.00000 ns Read took         101 cycles
+# 20407.00000 ns Read took         101 cycles
+# 20457.00000 ns Write took           4 cycles
+# 20847.00000 ns Write took          38 cycles
+# 21447.00000 ns Write took          59 cycles
+# 22057.00000 ns Write took          60 cycles
+# 22667.00000 ns Write took          60 cycles
+# 90519.00000 ns Reading the first KB took between           3 and         101 cycles each
+# ** Note: $stop    : ./lab5.sv(269)
+#    Time: 90519 ns  Iteration: 0  Instance: /lab5_testbench
+# Break in Module lab5_testbench at ./lab5.sv line 269
+# ** Error: VSIM license lost; attempting to re-establish.
+# FATAL ERROR: Unable to kill and restart license manager process.
