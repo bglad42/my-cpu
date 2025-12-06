@@ -265,8 +265,70 @@ module lab5_testbench ();
 		// Read all of the first KB
 		readStride(0, 8, 1024/8, minval, maxval);
 		$display("%t Reading the first KB took between %d and %d cycles each", $time, minval, maxval);
+		
+		resetMem();
+		
+		// Discover Block size
+		for (i = 3; i < 32; i++) begin 
+			readStride(0, 2**i, 16, minval, maxval);
+			$display("%t Reading that jawn took between %d and %d cycles each", $time, minval, maxval);
+		end
+		
+		resetMem();
+		
+			// -----------------------------------------------------
+	// Detect number of blocks in L1 and L2
+	// -----------------------------------------------------
 
+		 // Now detect L1 number of blocks using stride == L1 blocksize (16)
+			resetMem();
+//	int stride_L1 = 16;
+//	int stride_L2 = 8;
+//	int num_l1_blocks_estimate = 8;
+
+		$display("\n=== Testing L1 Cache Size ===");
+		// Start with small number of blocks and increase
+		for (i = 2; i <= 512; i = i * 2) begin
+			 resetMem();  // Clear cache before each test
+			 
+			 // First pass: Load i blocks into cache (each block is 16 bytes apart)
+			 readStride(0, 32, i, minval, maxval);
+			 
+			 // Second pass: Read same blocks again - should all be L1 hits if cache is large enough
+			 readStride(0, 32, i, minval, maxval);
+			 
+			 $display("L1 Test with %3d blocks: min=%d, max=%d cycles", i, minval, maxval);
+			 
+			 // If we see variation or higher latency, we've exceeded L1 capacity
+			 if (maxval > minval + 1 || maxval > 3) begin
+				  $display("  -> L1 capacity likely exceeded. L1 has approximately %d blocks", i/2);
+				  break;
+			 end
+		end
+
+		$display("\n=== Testing L2 Cache Size ===");
+		// Detect L2 number of blocks
+		// We need to exceed L1 first, then test L2
+		for (i = 4 * 2; i <= 4096; i = i * 2) begin
+			 resetMem();  // Clear cache before each test
+			 
+			 // First pass: Load i blocks (exceeds L1, goes to L2)
+			 readStride(0, 32, i, minval, maxval);
+			 $display("L2 Test with %4d blocks (first pass):  min=%d, max=%d cycles", i, minval, maxval);
+			 
+			 // Second pass: Read same blocks again
+			 // If all fit in L2, should see consistent L2 hit time (no main memory)
+			 readStride(0, 32, i, minval, maxval);
+			 $display("L2 Test with %4d blocks (second pass): min=%d, max=%d cycles", i, minval, maxval);
+			 
+			 // If second pass shows high latency (main memory), we've exceeded L2
+			 if (maxval > 100) begin  // Adjust threshold based on your memory latency
+				  $display("  -> L2 capacity likely exceeded. L2 has approximately %d blocks", i/2);
+				  break;
+		 end
+			 
+		end
 		$stop();
-	end
-	
+		
+		end
 endmodule
